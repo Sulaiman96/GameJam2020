@@ -12,6 +12,7 @@
             <e p="PlayerMovement.cs" t="Include" />
           </e>
           <e p="Weapon" t="Include">
+            <e p="Weapon.cs" t="Include" />
             <e p="WeaponBehaviour.cs" t="Include" />
             <e p="WeaponController.cs" t="Include" />
           </e>

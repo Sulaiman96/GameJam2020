@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class WeaponBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject weaponToSpawn = null;
+    [SerializeField] private Weapon weaponToSpawn = null;
     [SerializeField] private Transform weaponSpawnPosition = null;
     [SerializeField] private Transform muzzle = null;
     private WeaponController weapon;
-    void Start()
+    void Start()  
     {
-        Instantiate(weaponToSpawn, weaponSpawnPosition);
-        weapon = weaponToSpawn.GetComponent<WeaponController>();
+        Instantiate(weaponToSpawn.weapon, weaponSpawnPosition);
+        weapon = weaponToSpawn.weapon.GetComponent<WeaponController>();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("HERE");
             weapon.Shoot(muzzle);
+            weaponToSpawn.DisplayForce();
         }
     }
 }
