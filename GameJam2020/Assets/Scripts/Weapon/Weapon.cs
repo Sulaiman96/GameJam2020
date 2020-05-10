@@ -12,6 +12,6 @@ public class Weapon : ScriptableObject
 
     public void DisplayForce()
     {
-        Debug.Log(weaponForce);
+       // Debug.Log(weaponForce);
     }
 }

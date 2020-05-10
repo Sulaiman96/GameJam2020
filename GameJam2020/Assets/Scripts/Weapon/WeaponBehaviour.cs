@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class WeaponBehaviour : MonoBehaviour
 {
+    public Transform hitTransform;
+    public float hitRange;
+
     [SerializeField] private Weapon weaponToSpawn = null;
     [SerializeField] private Transform weaponSpawnPosition = null;
     [SerializeField] private Transform muzzle = null;
+
     private WeaponController weapon;
     private PlayerMovement playerMovement;
     private bool bIsAiming { get; set; } = false;
     private Vector3 targetLocation = default;
+    private Collider[] projectilesHit;
 
     void Start()  
     {
@@ -32,12 +37,7 @@ public class WeaponBehaviour : MonoBehaviour
         // When the player holds right mouse button we aim at the mouse location
         if (Input.GetMouseButtonDown(0))
         {
-            bIsAiming = false;
-            if (GetMouseLocation(ref targetLocation))
-            {
-                RotateToTarget(targetLocation);
-                weapon.Fire(targetLocation);
-            }
+            HitProjectile();
         }
         else if (Input.GetMouseButton(1))
         {
@@ -76,6 +76,35 @@ public class WeaponBehaviour : MonoBehaviour
         targetRotation.x = 0;
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 7f * Time.deltaTime);
+    }
+
+    private void HitProjectile()
+    {
+        bIsAiming = false;
+        if (!GetMouseLocation(ref targetLocation))
+            return;
+
+        RotateToTarget(targetLocation);
+
+        if (!hitTransform)
+            return;
+
+        projectilesHit = Physics.OverlapSphere(hitTransform.position, hitRange);
+
+        foreach (var hitObj in projectilesHit)
+        {
+            var projectileBehaviour = hitObj.GetComponent<ProjectileBehaviour>();
+            if (projectileBehaviour)
+            {
+                projectileBehaviour.LaunchProjectile(targetLocation);
+                Debug.Log(hitObj.name);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(hitTransform.position, hitRange);
     }
 
 }
