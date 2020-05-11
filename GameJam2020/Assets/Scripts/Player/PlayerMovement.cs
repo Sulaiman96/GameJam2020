@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
-    public GameObject camera;
     private Vector3 desiredPosition = default;
 
     // Update is called once per frame
