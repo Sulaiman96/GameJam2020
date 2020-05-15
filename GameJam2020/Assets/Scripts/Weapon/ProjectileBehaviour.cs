@@ -6,17 +6,13 @@ public class ProjectileBehaviour : MonoBehaviour
 {
     [SerializeField] private float lifeSpan = 15f;
     [SerializeField] private float projectileSpeed = 10f;
-    private bool bIsPendingDestroy = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private bool bIsDestroyingProjectile = false;
+    private Rigidbody rb;
+
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     public void LaunchProjectile(Vector3 targetLocation)
@@ -24,14 +20,14 @@ public class ProjectileBehaviour : MonoBehaviour
 
         Vector3 directionToLaunch = (targetLocation - transform.position).normalized;
         directionToLaunch.y = 0;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().AddForce(directionToLaunch * projectileSpeed, ForceMode.Impulse);
+        rb.velocity = Vector3.zero;
+        rb.AddForce(directionToLaunch * projectileSpeed, ForceMode.Impulse);
 
-        if (bIsPendingDestroy == true)
+        if (bIsDestroyingProjectile == true)
             return;
 
         Destroy(gameObject, lifeSpan);
-        bIsPendingDestroy = true;
+        bIsDestroyingProjectile = true;
     }
 
 }
