@@ -8,10 +8,15 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Player" t="Include">
+            <e p="Dash.cs" t="Include" />
             <e p="PlayerCamera.cs" t="Include" />
+            <e p="PlayerController.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
           </e>
+          <e p="TimeController.cs" t="Include" />
+          <e p="TimeField.cs" t="Include" />
           <e p="Weapon" t="Include">
+            <e p="ProjectileBehaviour.cs" t="Include" />
             <e p="Weapon.cs" t="Include" />
             <e p="WeaponBehaviour.cs" t="Include" />
             <e p="WeaponController.cs" t="Include" />
