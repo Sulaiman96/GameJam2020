@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
-
+[RequireComponent(typeof(TimeController))]
 public class WeaponBehaviour : MonoBehaviour
 {
-    public Transform hitTransform;
+    [SerializeField] private Transform hitTransform;
     public float hitRange;
 
     enum MouseStates { Valid, Invalid };
@@ -26,17 +25,27 @@ public class WeaponBehaviour : MonoBehaviour
 
     private WeaponController weapon;
     private PlayerMovement playerMovement;
+    private TimeController timeController;
+    private float timeDelation = 1;
     private bool bIsAiming { get; set; } = false;
     private Vector3 targetLocation = default;
     private Collider[] projectilesHit;
     private Vector2 cursorOffset;
-    
 
+    private void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+        timeController = GetComponent<TimeController>();
+    }
     void Start()  
     {
         Instantiate(weaponToSpawn.weapon, weaponSpawnPosition);
         weapon = weaponToSpawn.weapon.GetComponent<WeaponController>();
-        playerMovement = GetComponent<PlayerMovement>();
+        
+        if(timeController)
+            timeController.OnTimeDilationChange += OnTimeDilationChange;
+        else
+            Debug.LogWarning("Can't find time controller in " + GetType());
 
         cursorOffset = new Vector2(16, 16);
         currentMouseState = MouseStates.Valid;
@@ -73,9 +82,14 @@ public class WeaponBehaviour : MonoBehaviour
 
             // Don't set the player rotation if the value is zero
             if (playerMovement && playerMovement.GetPlayerDesiredPoisition() != Vector3.zero)
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerMovement.GetPlayerDesiredPoisition()), turnSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerMovement.GetPlayerDesiredPoisition()), (turnSpeed * Time.deltaTime) * timeDelation);
                 
         }
+    }
+
+    private void OnTimeDilationChange(object sender, TimeController.OnTimeDilationChangeEventArgs e)
+    {
+        timeDelation = e.newTimeDilation;
     }
 
     private bool GetMouseLocation(ref Vector3 targetLocation)
@@ -97,7 +111,7 @@ public class WeaponBehaviour : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(targetLocation - transform.position);
         targetRotation.x = 0;
         targetRotation.z = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, aimingTurnSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (aimingTurnSpeed * Time.deltaTime) * timeDelation);
     }
 
     private bool ValidAimDirection()
@@ -149,7 +163,6 @@ public class WeaponBehaviour : MonoBehaviour
             if (projectileBehaviour)
             {
                 projectileBehaviour.LaunchProjectile(targetLocation);
-                Debug.Log(hitObj.name);
             }
         }
     }

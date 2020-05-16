@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2231251757777071009}
   - component: {fileID: 183291549641486787}
   - component: {fileID: -236447420598599629}
+  - component: {fileID: 2671188267657446535}
   m_Layer: 9
   m_Name: Ball
   m_TagString: Untagged
@@ -123,5 +124,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeSpan: 15
+  lifeSpan: 120
   projectileSpeed: 12
+  totalBounceAmount: 2
+--- !u!114 &2671188267657446535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067054120009881010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0ad98f69347e24cbc606daa3834ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
