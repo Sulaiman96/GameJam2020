@@ -12,7 +12,6 @@ public class PlayerCamera : MonoBehaviour
     public float cameraZOffset = 7.0f;
     private Vector3 velocity = Vector3.zero;
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 position = new Vector3();
