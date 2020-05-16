@@ -434,6 +434,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1559201932965863169}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1263498954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263498953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e400f545d13d4fe43b37de5e91666189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 30
+  dashWaitTime: 0.3
 --- !u!114 &1263498957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,6 +747,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Height
       value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559201933312144285, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1559201934182088566, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
         type: 3}
