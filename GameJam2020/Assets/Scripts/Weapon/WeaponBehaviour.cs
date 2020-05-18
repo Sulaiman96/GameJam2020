@@ -7,8 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(TimeController))]
 public class WeaponBehaviour : MonoBehaviour
 {
-    [SerializeField] private Transform hitTransform;
-    public float hitRange;
+  
 
     enum MouseStates { Valid, Invalid };
 
@@ -16,14 +15,17 @@ public class WeaponBehaviour : MonoBehaviour
 
     [SerializeField] private float turnSpeed = 9f;
     [SerializeField] private float aimingTurnSpeed = 20f;
-    [SerializeField] private Weapon weaponToSpawn = null;
+    [SerializeField] private GameObject startingWeaponPrefab = null;
     [SerializeField] private Transform weaponSpawnPosition = null;
     [SerializeField] private Transform muzzle = null;
     [SerializeField, Range(-1,1)] private float aimAngleThreshold = -0.2f;
     [SerializeField] private Texture2D Crosshair = null;
     [SerializeField] private Texture2D invalidCrosshair = null;
+    [SerializeField] private Transform hitTransform = null;
+    [SerializeField] private float hitRange = 0;
 
     private WeaponController weapon;
+    private GameObject currentWeapon;
     private PlayerMovement playerMovement;
     private TimeController timeController;
     private float timeDelation = 1;
@@ -39,10 +41,9 @@ public class WeaponBehaviour : MonoBehaviour
     }
     void Start()  
     {
-        Instantiate(weaponToSpawn.weapon, weaponSpawnPosition);
-        weapon = weaponToSpawn.weapon.GetComponent<WeaponController>();
-        
-        if(timeController)
+        SpawnWeapon();
+
+        if (timeController)
             timeController.OnTimeDilationChange += OnTimeDilationChange;
         else
             Debug.LogWarning("Can't find time controller in " + GetType());
@@ -58,7 +59,6 @@ public class WeaponBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             weapon.SpawnProjectile(muzzle);
-            weaponToSpawn.DisplayForce();
         }
 
         if (!GetMouseLocation(ref targetLocation))
@@ -90,6 +90,19 @@ public class WeaponBehaviour : MonoBehaviour
     private void OnTimeDilationChange(object sender, TimeController.OnTimeDilationChangeEventArgs e)
     {
         timeDelation = e.newTimeDilation;
+    }
+
+    private void SpawnWeapon()
+    {
+        currentWeapon = Instantiate(startingWeaponPrefab, weaponSpawnPosition) as GameObject;
+        if (currentWeapon)
+        {
+            weapon = currentWeapon.GetComponent<WeaponController>();
+            if (!weapon)
+                return;
+
+            weapon.SetOwner(gameObject);
+        }
     }
 
     private bool GetMouseLocation(ref Vector3 targetLocation)
