@@ -880,6 +880,12 @@ PrefabInstance:
       propertyPath: m_Height
       value: 2.3
       objectReference: {fileID: 0}
+    - target: {fileID: 1559201933312144284, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: startingWeaponPrefab
+      value: 
+      objectReference: {fileID: 8068637902014523106, guid: 9ae1e5cc5d744b3409f66a73206105ed,
+        type: 3}
     - target: {fileID: 1559201933312144285, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
         type: 3}
       propertyPath: movementSpeed

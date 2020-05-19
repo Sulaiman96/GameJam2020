@@ -20,5 +20,4 @@ public class TimeField : MonoBehaviour
         if (other.TryGetComponent<TimeController>(out timeController))
              timeController.ChangeTime(normalTimeDilation);
     }
-
 }

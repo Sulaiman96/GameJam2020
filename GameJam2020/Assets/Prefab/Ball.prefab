@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeSpan: 120
   projectileSpeed: 12
+  totalBounceAmount: 10
 --- !u!114 &2671188267657446535
 MonoBehaviour:
   m_ObjectHideFlags: 0

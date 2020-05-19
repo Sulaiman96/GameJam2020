@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,15 @@ public class ProjectileBehaviour : MonoBehaviour
 {
     [SerializeField] private float lifeSpan = 60f;
     [SerializeField] private float projectileSpeed = 10f;
-    [SerializeField] private int totalBounceAmount { get; set; } = 10;
+    [SerializeField] private int totalBounceAmount = 10;
 
     private bool bIsDestroyingProjectile = false;
     private Rigidbody rb;
     private TimeController timeController;
     private float timeDelation = 1;
     private int currentBounce = 0;
+
+    public EventHandler OnProjectileDestroyed;
 
     private void Awake()
     {
@@ -55,9 +58,13 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision Enter");
         if (++currentBounce >= totalBounceAmount)
             Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        OnProjectileDestroyed?.Invoke(this.gameObject, EventArgs.Empty);
     }
 
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07269568aeb13b4c884daa0357693bc, type: 3}
   m_Name: Bat1
   m_EditorClassIdentifier: 
-  weapon: {fileID: 8068637902014523106, guid: 9ae1e5cc5d744b3409f66a73206105ed, type: 3}
-  weaponForce: 10
+  projectilePrefab: {fileID: 6067054120009881010, guid: 1dc42272df227704d9990b5fea34bad9,
+    type: 3}
+  maxAmountOfProjectiles: 4
