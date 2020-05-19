@@ -6,15 +6,16 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement))]
 public class Dash : MonoBehaviour
 {
-    [SerializeField] float dashForce = 10f;
-    [SerializeField] private float dashWaitTime = 0.5f;
+    [SerializeField] private float dashSpeed = 30f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 0.8f;
+
     private CharacterController controller;
     private Vector3 currentPosition;
     private Vector3 previousPosition;
-    private float smoothDash = 1f;
     private bool letPlayerDash = true;
     private bool isDashing = false;
-    private bool dashCompleted = true;
+    private TrailRenderer dashEffect;
 
     public Vector3 GetMovementDirection
     {
@@ -24,6 +25,13 @@ public class Dash : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        dashEffect = GetComponent<TrailRenderer>();
+    }
+
+    private void Start()
+    {
+        if(dashEffect)
+            dashEffect.emitting = false;
     }
 
     private void Update()
@@ -34,25 +42,31 @@ public class Dash : MonoBehaviour
         {
             letPlayerDash = false;
             isDashing = true;
-            StartCoroutine(DashWaitTime(dashWaitTime));
+
+            if (dashEffect)
+                dashEffect.emitting = true;
+
+            StartCoroutine(DashWaitTime());
         }
-        //TODO stop the player from being able to move whilst the dash is going on.
+
         if (isDashing == true ) 
-        {
-            DoTheDash();
-        }
-
+            Dashing();
     }
 
-    private void DoTheDash()
+    private void Dashing()
     {
-        controller.Move(GetMovementDirection * dashForce * Time.deltaTime);
+        controller.Move(GetMovementDirection * dashSpeed * Time.deltaTime);
     }
 
-    IEnumerator DashWaitTime(float time)
+    IEnumerator DashWaitTime()
     {
-        yield return new WaitForSeconds(time);
-        letPlayerDash = true;
+        yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+
+        if (dashEffect)
+            dashEffect.emitting = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        letPlayerDash = true;
     }
 }
