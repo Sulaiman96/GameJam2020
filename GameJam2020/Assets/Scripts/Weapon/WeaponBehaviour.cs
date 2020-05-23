@@ -18,9 +18,6 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private GameObject startingWeaponPrefab = null;
     [SerializeField] private Transform weaponSpawnPosition = null;
     [SerializeField] private Transform muzzle = null;
-    [SerializeField, Range(-1,1)] private float aimAngleThreshold = -0.2f;
-    [SerializeField] private Texture2D Crosshair = null;
-    [SerializeField] private Texture2D invalidCrosshair = null;
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
 
@@ -32,13 +29,16 @@ public class WeaponBehaviour : MonoBehaviour
     private bool bIsAiming { get; set; } = false;
     private Vector3 targetLocation = default;
     private Collider[] projectilesHit;
-    private Vector2 cursorOffset;
+    
+    private MouseHandler mouseHandler;
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         timeController = GetComponent<TimeController>();
+        mouseHandler = GetComponent<MouseHandler>();
     }
+
     void Start()  
     {
         SpawnWeapon();
@@ -47,11 +47,6 @@ public class WeaponBehaviour : MonoBehaviour
             timeController.OnTimeDilationChange += OnTimeDilationChange;
         else
             Debug.LogWarning("Can't find time controller in " + GetType());
-
-        cursorOffset = new Vector2(16, 16);
-        currentMouseState = MouseStates.Valid;
-        if (Crosshair)
-           Cursor.SetCursor(Crosshair, cursorOffset, CursorMode.Auto);
     }
 
     private void Update()
@@ -61,14 +56,16 @@ public class WeaponBehaviour : MonoBehaviour
             weapon.SpawnProjectile(muzzle);
         }
 
-        if (!GetMouseLocation(ref targetLocation))
+        if (!mouseHandler.GetMouseLocation(ref targetLocation))
             return;
 
-        SetPlayerCursor();
+        mouseHandler.SetCursorTexture(targetLocation);
 
         if (Input.GetMouseButtonDown(0))
         {
-            HitProjectile();
+            // Check if mouse location is valid 
+            if(mouseHandler.IsValidAimDirection(targetLocation))
+                 HitProjectile();
         }
         else if (Input.GetMouseButton(1))
         {
@@ -105,60 +102,12 @@ public class WeaponBehaviour : MonoBehaviour
         }
     }
 
-    private bool GetMouseLocation(ref Vector3 targetLocation)
-    {
-        Plane PlayerPlane = new Plane(Vector3.up, transform.position);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float hitDist = 0.0f;
-        if (PlayerPlane.Raycast(ray, out hitDist))
-        {
-            targetLocation = ray.GetPoint(hitDist);
-            return true;
-        }
-
-        return false;
-    }
-
     private void RotateToTarget(Vector3 target)
     {
         Quaternion targetRotation = Quaternion.LookRotation(targetLocation - transform.position);
         targetRotation.x = 0;
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (aimingTurnSpeed * Time.deltaTime) * timeDelation);
-    }
-
-    private bool ValidAimDirection()
-    {
-        Vector3 direction = targetLocation - transform.position;
-        float dotValue = Vector3.Dot(transform.forward.normalized, direction.normalized);
-
-        // Return false if mouse is behind the player
-        if (dotValue < aimAngleThreshold) 
-            return false;
-        
-        return true;
-    }
-
-    private void SetPlayerCursor()
-    {
-        bool validMouseAim = ValidAimDirection();
-
-        if (validMouseAim && currentMouseState != MouseStates.Valid)
-        {
-            if (!Crosshair)
-                return;
-
-            Cursor.SetCursor(Crosshair, cursorOffset, CursorMode.Auto);
-            currentMouseState = MouseStates.Valid;
-        }
-        else if(!validMouseAim && currentMouseState != MouseStates.Invalid)
-        {
-            if (!invalidCrosshair)
-                return;
-
-            Cursor.SetCursor(invalidCrosshair, cursorOffset, CursorMode.Auto);
-            currentMouseState = MouseStates.Invalid;
-        }
     }
 
     private void HitProjectile()
