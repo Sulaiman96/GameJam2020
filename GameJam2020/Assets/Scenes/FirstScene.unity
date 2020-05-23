@@ -587,6 +587,20 @@ MonoBehaviour:
   Crosshair: {fileID: 2800000, guid: 6bb2f40104b487a4282fed4e18e6db98, type: 3}
   invalidCrosshair: {fileID: 2800000, guid: 4f9fe3c159b364941bc2ec58211ab905, type: 3}
   aimAngleThreshold: -0.2
+--- !u!114 &1263498956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263498953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c5280f4bce1184a856721f7ffd722f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  TeamNumber: 0
 --- !u!114 &1263498957
 MonoBehaviour:
   m_ObjectHideFlags: 0
