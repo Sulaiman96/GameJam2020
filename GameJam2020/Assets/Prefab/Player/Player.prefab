@@ -3705,9 +3705,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSpeed: 9
   aimingTurnSpeed: 20
-  startingWeaponPrefab: {fileID: 8068637902014523106, guid: 9ae1e5cc5d744b3409f66a73206105ed,
+  startingWeaponPrefab: {fileID: 1202766423338174, guid: 4d3e2f549a890b6428d53a7e71334154,
     type: 3}
-  weaponSpawnPosition: {fileID: 2603712523518740376}
+  weaponSpawnPosition: {fileID: 2603712523459513843}
   muzzle: {fileID: 2603712523410002939}
   hitTransform: {fileID: 2603712523981181506}
   hitRange: 1.6
@@ -3883,7 +3883,7 @@ Animator:
   m_GameObject: {fileID: 2603712524157003185}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 609df7811bc17e04f8f884d64792282b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
