@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(TimeController))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]private float movementSpeed = 13f;
+    [SerializeField] private float movementSpeed = 13f;
 
     private Vector3 desiredPosition = default;
     private float moveHorizontal = 0;
@@ -13,11 +13,13 @@ public class PlayerMovement : MonoBehaviour
     private TimeController timeController;
     private float timeDelation = 1;
     private CharacterController characterController;
+    private Animator animController;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         timeController = GetComponent<TimeController>();
+        animController = GetComponent<Animator>();
     }
 
     private void Start()
@@ -26,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
             timeController.OnTimeDilationChange += OnTimeDilationChange;
         else
             Debug.LogWarning("Can't find time controller in " + GetType());
+
+        animController.applyRootMotion = false;
     }
 
     void Update()
@@ -34,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         moveVertical = Input.GetAxisRaw("Vertical");
 
         desiredPosition = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        UpdateMovementAnimation(desiredPosition);
 
         PlayerMovment();
     }
@@ -52,5 +58,26 @@ public class PlayerMovement : MonoBehaviour
     {
         return desiredPosition;
     }
+
+    private void UpdateMovementAnimation(Vector3 direction)
+    {
+
+        // Play animation in the player relative facing direction
+        if (animController)
+        {
+           
+            Vector3 dir = direction;
+            if (direction.magnitude > 1.0f)
+            {
+                dir = direction.normalized;
+            }
+
+            dir = transform.InverseTransformDirection(dir);
+
+            animController.SetFloat("VelX", dir.x, 0.05f, Time.deltaTime);
+            animController.SetFloat("VelY", dir.z, 0.05f, Time.deltaTime);
+        }
+    }
+        
 
 }

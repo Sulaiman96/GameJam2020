@@ -21,6 +21,8 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
 
+    public bool isSwinging { get; set; }
+
     private WeaponController weapon;
     private GameObject currentWeapon;
     private PlayerMovement playerMovement;
@@ -29,14 +31,16 @@ public class WeaponBehaviour : MonoBehaviour
     private bool bIsAiming { get; set; } = false;
     private Vector3 targetLocation = default;
     private Collider[] projectilesHit;
-    
+    private Animator animController;
     private MouseHandler mouseHandler;
+   
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         timeController = GetComponent<TimeController>();
         mouseHandler = GetComponent<MouseHandler>();
+        animController = GetComponent<Animator>();
     }
 
     void Start()  
@@ -64,8 +68,10 @@ public class WeaponBehaviour : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Check if mouse location is valid 
-            if(mouseHandler.IsValidAimDirection(targetLocation))
-                 HitProjectile();
+            if (!mouseHandler.IsValidAimDirection(targetLocation))
+                return;
+
+            Attack(); 
         }
         else if (Input.GetMouseButton(1))
         {
@@ -87,6 +93,30 @@ public class WeaponBehaviour : MonoBehaviour
     private void OnTimeDilationChange(object sender, TimeController.OnTimeDilationChangeEventArgs e)
     {
         timeDelation = e.newTimeDilation;
+    }
+
+    private void Attack()
+    {
+        if (isSwinging)
+            return;
+
+        // Check if we are not in the swing state
+        if(animController && !animController.GetCurrentAnimatorStateInfo(0).IsName("Swing"))
+        {
+            isSwinging = true;
+            animController.SetBool("IsSwinging", true);
+            // we set is swinging back false when animation has finish in the swinging state machine class 
+        }
+
+        HitProjectile();
+    }
+
+    public void StopAttacking()
+    {
+        // this is called when the animation has transistion from the swing animation state
+        isSwinging = false;
+        if(animController)
+            animController.SetBool("IsSwinging", false); isSwinging = true;
     }
 
     private void SpawnWeapon()
@@ -133,5 +163,7 @@ public class WeaponBehaviour : MonoBehaviour
     {
         Gizmos.DrawWireSphere(hitTransform.position, hitRange);
     }
+
+  
 
 }
