@@ -21,22 +21,25 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
 
+    public bool isSwinging { get; set; }
+
     private WeaponController weapon;
     private GameObject currentWeapon;
     private PlayerMovement playerMovement;
     private TimeController timeController;
     private float timeDelation = 1;
-    private bool bIsAiming { get; set; } = false;
     private Vector3 targetLocation = default;
-    private Collider[] projectilesHit;
-    
+    private List<ProjectileBehaviour> projectilesHit = new List<ProjectileBehaviour>();
+    private Animator animController;
     private MouseHandler mouseHandler;
+    private bool isHitting { get; set; } = false;
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         timeController = GetComponent<TimeController>();
         mouseHandler = GetComponent<MouseHandler>();
+        animController = GetComponent<Animator>();
     }
 
     void Start()  
@@ -64,29 +67,65 @@ public class WeaponBehaviour : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Check if mouse location is valid 
-            if(mouseHandler.IsValidAimDirection(targetLocation))
-                 HitProjectile();
+            if (!mouseHandler.IsValidAimDirection(targetLocation))
+                return;
+
+            StartAttack(); 
         }
         else if (Input.GetMouseButton(1))
         {
-            bIsAiming = true;
             RotateToTarget(targetLocation);
         } 
         else
         {
-
-            bIsAiming = false;
 
             // Don't set the player rotation if the value is zero
             if (playerMovement && playerMovement.GetPlayerDesiredPoisition() != Vector3.zero)
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerMovement.GetPlayerDesiredPoisition()), (turnSpeed * Time.deltaTime) * timeDelation);
                 
         }
+
+        if(isHitting)
+            HitProjectile();
     }
 
     private void OnTimeDilationChange(object sender, TimeController.OnTimeDilationChangeEventArgs e)
     {
         timeDelation = e.newTimeDilation;
+    }
+
+    private void StartAttack()
+    {
+        if (isSwinging)
+            return;
+
+        // Check if we are not in the swing state
+        if(animController && !animController.GetCurrentAnimatorStateInfo(0).IsName("Swing"))
+        {
+            isSwinging = true;
+            animController.SetBool("IsSwinging", true);
+            // we set is swinging back false when animation has finish in the swinging state machine class 
+        }
+
+    }
+
+    public void StopAttacking()
+    {
+        // this is called when the animation has transistion from the swing animation state
+        isSwinging = false;
+        if(animController)
+            animController.SetBool("IsSwinging", false); isSwinging = true;
+    }
+
+    public void BeginSwing()
+    {
+        projectilesHit.Clear();
+        isHitting = true;
+    }
+
+    public void EndSwing()
+    {
+        isHitting = false;
     }
 
     private void SpawnWeapon()
@@ -112,18 +151,17 @@ public class WeaponBehaviour : MonoBehaviour
 
     private void HitProjectile()
     {
-        bIsAiming = false;
-
         if (!hitTransform)
             return;
 
-        projectilesHit = Physics.OverlapSphere(hitTransform.position, hitRange);
+       Collider[] objectsHit = Physics.OverlapSphere(hitTransform.position, hitRange);
 
-        foreach (var hitObj in projectilesHit)
+        foreach (var hitObj in objectsHit)
         {
             var projectileBehaviour = hitObj.GetComponent<ProjectileBehaviour>();
-            if (projectileBehaviour)
+            if (projectileBehaviour && !projectilesHit.Contains(projectileBehaviour))
             {
+                projectilesHit.Add(projectileBehaviour);
                 projectileBehaviour.LaunchProjectile(targetLocation);
             }
         }
@@ -133,5 +171,7 @@ public class WeaponBehaviour : MonoBehaviour
     {
         Gizmos.DrawWireSphere(hitTransform.position, hitRange);
     }
+
+  
 
 }
