@@ -163,6 +163,7 @@ public class WeaponBehaviour : MonoBehaviour
             {
                 projectilesHit.Add(projectileBehaviour);
                 projectileBehaviour.LaunchProjectile(targetLocation);
+                projectileBehaviour.SetOwner(gameObject);
             }
         }
     }

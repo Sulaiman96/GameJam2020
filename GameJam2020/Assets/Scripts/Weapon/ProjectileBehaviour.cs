@@ -17,6 +17,8 @@ public class ProjectileBehaviour : MonoBehaviour
     private int currentBounce = 0;
     private MaterialHandler materialHandler;
     private float currentLifeSpan;
+    private float damageAmount = 1f;
+    private GameObject owner = null;
 
     public ParticleSystem destroyParticle;
     public EventHandler OnProjectileDestroyed;
@@ -71,6 +73,12 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        HealthController health;
+        if(collision.gameObject.TryGetComponent<HealthController>(out health))
+        {
+            health.OnTakeDamage(damageAmount, gameObject);
+        }
+
         if (++currentBounce >= totalBounceAmount)
             DestroyProjectile();
     }
@@ -89,6 +97,12 @@ public class ProjectileBehaviour : MonoBehaviour
         }
         
         Destroy(gameObject);
+    }
+
+    public void SetOwner(GameObject newOwner)
+    {
+        if(owner != newOwner)
+            owner = newOwner;
     }
 
 }
