@@ -8,7 +8,8 @@ public class HealthController : MonoBehaviour
     
     [SerializeField] private float maxHealth = 10f;
 
-    public byte TeamNumber = 0;  
+    public byte TeamNumber = 0;
+    public HealthBarUI healthUI;
 
     private float health = 10f;
     private bool bIsDead = false;
@@ -25,6 +26,10 @@ public class HealthController : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        OnHealthChange += HealthChange;
+
+        if (healthUI)
+            healthUI.SetMaxHealth(maxHealth);
     }
 
     public void OnTakeDamage(float damage, GameObject _instigator)
@@ -38,11 +43,19 @@ public class HealthController : MonoBehaviour
 
         health = health - damage;
         
-        if(health <= 0)
+        OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { damageAmount = damage, currentHealth = health, owner = gameObject, instigator = _instigator });
+
+        if (health <= 0)
         {
             bIsDead = true;
+            OnHealthChange -= HealthChange;
         }
-
-        OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { damageAmount = damage, currentHealth = health, owner = gameObject, instigator = _instigator });
     }
+
+    private void HealthChange(object sender, HealthController.OnHealthChangeEventArgs e)
+    {
+        if (healthUI)
+            healthUI.SetHealth(e.currentHealth);
+    }
+
 }

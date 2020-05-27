@@ -16,10 +16,10 @@ public class WeaponController : MonoBehaviour
         projectiles = new List<GameObject>();
     }
 
-    public void SetOwner(GameObject owner)
+    public void SetOwner(GameObject newOwner)
     {
-        if (this.owner != owner)
-            this.owner = owner;
+        if (owner != newOwner)
+            owner = newOwner;
     }
 
     public void SpawnProjectile(Transform muzzle)
@@ -32,7 +32,10 @@ public class WeaponController : MonoBehaviour
         if (weapon.projectilePrefab)
         {
             GameObject projectile = Instantiate(weapon.projectilePrefab, muzzle.position, Quaternion.identity) as GameObject;
-            projectile.GetComponent<ProjectileBehaviour>().OnProjectileDestroyed += RemoveProjectile;
+            ProjectileBehaviour projectileBih = projectile.GetComponent<ProjectileBehaviour>();
+
+            projectileBih.SetOwner(owner);
+            projectileBih.OnProjectileDestroyed += RemoveProjectile;
             projectiles.Add(projectile);
         }
         else
