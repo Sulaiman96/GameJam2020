@@ -10,7 +10,7 @@ public class MaterialHandler : MonoBehaviour
 
     private MeshRenderer meshRender;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         meshRender = GetComponent<MeshRenderer>();
         if (defaultMaterial)

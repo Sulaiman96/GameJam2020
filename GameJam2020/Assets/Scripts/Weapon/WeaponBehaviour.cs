@@ -167,12 +167,11 @@ public class WeaponBehaviour : MonoBehaviour
             }
         }
     }
-
+    
+    #region gizmoz
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(hitTransform.position, hitRange);
     }
-
-  
-
+    #endregion
 }

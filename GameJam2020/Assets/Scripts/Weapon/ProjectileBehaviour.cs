@@ -6,9 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(TimeController))]
 public class ProjectileBehaviour : MonoBehaviour
 {
+    [SerializeField] private bool isHoming = false;
     [SerializeField] private float lifeSpan = 60f;
     [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float projectileDamage = 1f;
     [SerializeField] private int totalBounceAmount = 10;
+    [SerializeField] private float rotationForce = 50f; //how fast the projectile rotates.
 
     private bool bIsDestroyingProjectile = false;
     private Rigidbody rb;
@@ -17,8 +20,9 @@ public class ProjectileBehaviour : MonoBehaviour
     private int currentBounce = 0;
     private MaterialHandler materialHandler;
     private float currentLifeSpan;
-    private float damageAmount = 1f;
+    
     private GameObject owner = null;
+    private GameObject player;    
 
     public ParticleSystem destroyParticle;
     public EventHandler OnProjectileDestroyed;
@@ -28,6 +32,7 @@ public class ProjectileBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         timeController = GetComponent<TimeController>();
         materialHandler = GetComponent<MaterialHandler>();
+        player = GameObject.FindWithTag("Player");
 
         currentLifeSpan = lifeSpan;
     }
@@ -42,6 +47,23 @@ public class ProjectileBehaviour : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        //The player null check should be changed to is player dead.
+        if (player == null) return;
+        if (isHoming)
+        {
+            Vector3 direction = (GetTargetLocation() - rb.position).normalized;
+            Vector3 rotationAmount = Vector3.Cross(transform.forward, direction);
+
+            //TODO BECAUSE THE FORCE IS CONSTANTLY BEING ADDED, IT AFFECTS THE FORCE FIELD, FIND A WAY AROUND.
+            rb.angularVelocity = rotationAmount * rotationForce * timeDelation;
+            rb.velocity = transform.forward * projectileSpeed * timeDelation;
+            
+            transform.LookAt(GetTargetLocation());
+        }
+    }
+    
     private void Start()
     {
         if (timeController)
@@ -62,7 +84,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public void LaunchProjectile(Vector3 targetLocation)
     {
         if(materialHandler && !materialHandler.isActiveMaterial)
-            materialHandler.UseActiveMaterial();
+          materialHandler.UseActiveMaterial();
 
         Vector3 directionToLaunch = (targetLocation - transform.position).normalized;
         directionToLaunch.y = 0;
@@ -76,7 +98,7 @@ public class ProjectileBehaviour : MonoBehaviour
         HealthController health;
         if(collision.gameObject.TryGetComponent<HealthController>(out health))
         {
-            health.OnTakeDamage(damageAmount, gameObject);
+            health.OnTakeDamage(projectileDamage, owner);
         }
 
         if (++currentBounce >= totalBounceAmount)
@@ -97,6 +119,12 @@ public class ProjectileBehaviour : MonoBehaviour
         }
         
         Destroy(gameObject);
+    }
+    
+    public Vector3 GetTargetLocation()
+    {
+        var enemyController = player.GetComponent<CharacterController>();
+        return player.transform.position + Vector3.up * (enemyController.height * 1 / 4);
     }
 
     public void SetOwner(GameObject newOwner)
