@@ -11,7 +11,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private float timeBetweenAttack = 2f;
     [SerializeField] private Transform turretBarrel;
-    [SerializeField] private float shotPower = 50f;
+    [SerializeField] private Material turretActiveMaterial = null;
 
     private ProjectileBehaviour projectileBehaviour;
     private GameObject player;    
@@ -42,6 +42,7 @@ public class TurretController : MonoBehaviour
         GameObject p = Instantiate(projectile, turretBarrel.position, Quaternion.identity);
         var projectileBehaviourComponent = p.GetComponent<ProjectileBehaviour>();
         projectileBehaviourComponent.SetOwner(gameObject);
+        projectileBehaviourComponent.SetActiveMaterial(turretActiveMaterial);
         projectileBehaviourComponent.LaunchProjectile(projectileBehaviourComponent.GetTargetLocation());
     }
     

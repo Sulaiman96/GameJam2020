@@ -20,6 +20,7 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform muzzle = null;
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
+    [SerializeField] private Material playerActiveMaterial = null;
 
     public bool isSwinging { get; set; }
 
@@ -163,11 +164,13 @@ public class WeaponBehaviour : MonoBehaviour
             {
                 projectilesHit.Add(projectileBehaviour);
                 projectileBehaviour.LaunchProjectile(targetLocation);
+                projectileBehaviour.SetProjectileLayer("PlayerHitProjectiles");
+                projectileBehaviour.SetActiveMaterial(playerActiveMaterial);
                 projectileBehaviour.SetOwner(gameObject);
             }
         }
     }
-    
+
     #region gizmoz
     private void OnDrawGizmos()
     {

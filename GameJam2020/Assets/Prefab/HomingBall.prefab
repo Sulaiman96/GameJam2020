@@ -138,8 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e83687e3ea6f24ba5275d7ffd50eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: 7e755a223988c39439804e6c3b13e41b, type: 2}
-  activeMaterial: {fileID: 2100000, guid: 88c087f8de0247649b4fc4f012f8a8d9, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: de347c13226f1094784a318f3dcb48e2, type: 2}
 --- !u!96 &-556003551984741573
 TrailRenderer:
   serializedVersion: 2
@@ -219,8 +218,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.095674604, g: 0.7165753, b: 0.8113208, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0, b: 0.018185139, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 0.8627451}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -236,7 +235,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
+      atime1: 58982
       atime2: 0
       atime3: 0
       atime4: 0
@@ -268,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHoming: 1
-  lifeSpan: 60
+  lifeSpan: 5
   projectileSpeed: 10
   projectileDamage: 1
   totalBounceAmount: 10

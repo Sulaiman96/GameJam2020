@@ -11,7 +11,7 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileDamage = 1f;
     [SerializeField] private int totalBounceAmount = 10;
-    [SerializeField] private float rotationForce = 50f; //how fast the projectile rotates.
+    [SerializeField] private float rotationForce = 50f; 
 
     private bool bIsDestroyingProjectile = false;
     private Rigidbody rb;
@@ -83,9 +83,6 @@ public class ProjectileBehaviour : MonoBehaviour
 
     public void LaunchProjectile(Vector3 targetLocation)
     {
-        if(materialHandler && !materialHandler.isActiveMaterial)
-          materialHandler.UseActiveMaterial();
-
         Vector3 directionToLaunch = (targetLocation - transform.position).normalized;
         directionToLaunch.y = 0;
         rb.velocity = Vector3.zero;
@@ -127,10 +124,21 @@ public class ProjectileBehaviour : MonoBehaviour
         return player.transform.position + Vector3.up * (enemyController.height * 1 / 4);
     }
 
+    public void SetProjectileLayer(string layer)
+    {
+        print(LayerMask.NameToLayer(layer));
+        gameObject.layer = LayerMask.NameToLayer(layer);
+    }
+
     public void SetOwner(GameObject newOwner)
     {
         if(owner != newOwner)
             owner = newOwner;
     }
 
+    public void SetActiveMaterial(Material activeMaterial)
+    {
+        if(materialHandler)
+            materialHandler.UseActiveMaterial(activeMaterial);
+    }
 }

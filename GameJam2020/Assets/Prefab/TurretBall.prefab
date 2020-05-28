@@ -138,8 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e83687e3ea6f24ba5275d7ffd50eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: 5b43c0c84e7821d478eea7e0fe33843f, type: 2}
-  activeMaterial: {fileID: 2100000, guid: f381fe9fe77d07f4b939e0225359448c, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: de347c13226f1094784a318f3dcb48e2, type: 2}
 --- !u!96 &-556003551984741573
 TrailRenderer:
   serializedVersion: 2
@@ -219,9 +218,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.095674604, g: 0.7165753, b: 0.8113208, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.037427984, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 0.8627451}
+      key2: {r: 0, g: 0, b: 0, a: 0.827451}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -236,8 +235,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 59174
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -267,8 +266,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHoming: 0
   lifeSpan: 60
   projectileSpeed: 10
+  projectileDamage: 1
   totalBounceAmount: 10
+  rotationForce: 50
   destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
     type: 3}

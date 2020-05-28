@@ -5,9 +5,7 @@ using UnityEngine;
 public class MaterialHandler : MonoBehaviour
 {
     public Material defaultMaterial;
-    public Material activeMaterial;
-    public bool isActiveMaterial { get; set; } = false;
-
+    
     private MeshRenderer meshRender;
     // Start is called before the first frame update
     void Awake()
@@ -24,13 +22,12 @@ public class MaterialHandler : MonoBehaviour
         }
     }
 
-    public void UseActiveMaterial()
+    public void UseActiveMaterial(Material activeMaterial)
     {
         if (!activeMaterial)
             return;
 
         meshRender.material = activeMaterial;
-        isActiveMaterial = true;
     }
 
     public void UseDefaultMaterial()
@@ -39,11 +36,5 @@ public class MaterialHandler : MonoBehaviour
             return;
 
         meshRender.material = defaultMaterial;
-        isActiveMaterial = false;
-    }
-
-    public void ChangeActiveMaterial(Material mat)
-    {
-        activeMaterial = mat;
     }
 }
