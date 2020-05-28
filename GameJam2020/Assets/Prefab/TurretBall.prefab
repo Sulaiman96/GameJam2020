@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 3404141927365989077}
   - component: {fileID: 2231251757777071009}
   - component: {fileID: 183291549641486787}
-  - component: {fileID: -236447420598599629}
   - component: {fileID: 2671188267657446535}
-  - component: {fileID: 6925291989971225151}
+  - component: {fileID: 5767602024492977716}
   - component: {fileID: -556003551984741573}
-  m_Layer: 0
-  m_Name: Ball
+  - component: {fileID: 6593014650016847046}
+  m_Layer: 10
+  m_Name: TurretBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 6067054120009881010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.81661, y: 0.508, z: 0.86106}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -114,23 +114,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &-236447420598599629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6067054120009881010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeSpan: 120
-  projectileSpeed: 3.6
-  totalBounceAmount: 5
-  destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
-    type: 3}
 --- !u!114 &2671188267657446535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0ad98f69347e24cbc606daa3834ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6925291989971225151
+--- !u!114 &5767602024492977716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,8 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e83687e3ea6f24ba5275d7ffd50eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  activeMaterial: {fileID: 2100000, guid: 7e755a223988c39439804e6c3b13e41b, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: de347c13226f1094784a318f3dcb48e2, type: 2}
 --- !u!96 &-556003551984741573
 TrailRenderer:
   serializedVersion: 2
@@ -236,9 +218,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.095674604, g: 0.7165753, b: 0.8113208, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.037427984, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 0.8627451}
+      key2: {r: 0, g: 0, b: 0, a: 0.827451}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -253,8 +235,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 59174
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -272,3 +254,23 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &6593014650016847046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067054120009881010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHoming: 0
+  lifeSpan: 60
+  projectileSpeed: 10
+  projectileDamage: 1
+  totalBounceAmount: 10
+  rotationForce: 50
+  destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
+    type: 3}

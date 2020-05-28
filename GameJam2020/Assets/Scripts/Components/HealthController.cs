@@ -34,14 +34,13 @@ public class HealthController : MonoBehaviour
 
     public void OnTakeDamage(float damage, GameObject _instigator)
     {
-        HealthController instigatorHealthController;
-        if (_instigator.TryGetComponent<HealthController>(out instigatorHealthController))
+        if (_instigator.TryGetComponent<HealthController>(out var instigatorHealthController))
         {
             if (instigatorHealthController.TeamNumber == TeamNumber)
                 return;
         }
 
-        health = health - damage;
+        health -= damage;
         
         OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { damageAmount = damage, currentHealth = health, owner = gameObject, instigator = _instigator });
 
@@ -52,6 +51,7 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    //updates UI
     private void HealthChange(object sender, HealthController.OnHealthChangeEventArgs e)
     {
         if (healthUI)
