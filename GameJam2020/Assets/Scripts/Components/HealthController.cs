@@ -9,7 +9,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float maxHealth = 10f;
 
     public byte TeamNumber = 0;
-    public HealthBarUI healthUI;
+    [HideInInspector] public HealthBarUI healthUI;
 
     private float health = 10f;
     private bool bIsDead = false;
