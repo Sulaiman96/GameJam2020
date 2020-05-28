@@ -3637,6 +3637,7 @@ GameObject:
   - component: {fileID: 2603712524157003184}
   - component: {fileID: 2603712524157003192}
   - component: {fileID: 6381678660142751553}
+  - component: {fileID: 1989935922}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -3712,6 +3713,7 @@ MonoBehaviour:
   muzzle: {fileID: 2603712523410002939}
   hitTransform: {fileID: 2603712523981181506}
   hitRange: 1.6
+  playerActiveMaterial: {fileID: 0}
 --- !u!114 &2603712524157003196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3860,7 +3862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c5280f4bce1184a856721f7ffd722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 1
   TeamNumber: 0
   healthUI: {fileID: 0}
 --- !u!114 &2603712524157003184
@@ -3906,5 +3908,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074132f0ff9e5c34a854745cedf77cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameOverCanvas: {fileID: 5261690690074958966, guid: 2952d9d64d202404e88def7a473c2a77,
+--- !u!114 &1989935922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2603712524157003185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e983e4565bd69c48b2748d808fa4e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persistentGameobjectPrefab: {fileID: 3028479754290770227, guid: 8c885771ebb764e44b43e6d5e39d60a2,
     type: 3}
