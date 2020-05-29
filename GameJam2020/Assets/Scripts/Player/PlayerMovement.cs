@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float timeDelation = 1;
     private CharacterController characterController;
     private Animator animController;
+    private float gravity = 0f;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogWarning("Can't find time controller in " + GetType());
 
         animController.applyRootMotion = false;
+
+        gravity = Physics.gravity.y;
     }
 
     void Update()
@@ -38,9 +41,7 @@ public class PlayerMovement : MonoBehaviour
         moveVertical = Input.GetAxisRaw("Vertical");
 
         desiredPosition = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
         UpdateMovementAnimation(desiredPosition);
-
         PlayerMovment();
     }
 
@@ -51,7 +52,9 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerMovment()
     {
-        characterController.Move((desiredPosition * movementSpeed * Time.deltaTime) * timeDelation);
+        Vector3 moveDirection = (desiredPosition * movementSpeed * Time.deltaTime) * timeDelation;
+        moveDirection.y += gravity * Time.deltaTime;
+        characterController.Move(moveDirection);
     }
 
     public Vector3 GetPlayerDesiredPoisition()
