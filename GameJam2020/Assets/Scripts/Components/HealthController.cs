@@ -7,12 +7,20 @@ public class HealthController : MonoBehaviour
 {
     
     [SerializeField] private float maxHealth = 10f;
-
     public byte TeamNumber = 0;
+
+
+    [SerializeField] private float immunityAfterDamageTimer = 1.5f;
+    public Material flashMaterial;
+    public Renderer rendererBody;
+
     [HideInInspector] public HealthBarUI healthUI;
 
     private float health = 10f;
     private bool bIsDead = false;
+    private float lastDamageTime = 0f;
+    private Material[] defaultMaterials;
+    private Material[] flashingMaterials;
 
     public event EventHandler<OnHealthChangeEventArgs> OnHealthChange;
     public class OnHealthChangeEventArgs : EventArgs
@@ -30,6 +38,14 @@ public class HealthController : MonoBehaviour
 
         if (healthUI)
             healthUI.SetMaxHealth(maxHealth);
+
+        if(rendererBody && flashMaterial)
+        {
+            defaultMaterials = rendererBody.materials;
+            flashingMaterials = MakeMaterialArray(flashMaterial);
+        }
+       
+        lastDamageTime = (-1 * immunityAfterDamageTimer);
     }
 
     public void OnTakeDamage(float damage, GameObject _instigator)
@@ -40,6 +56,9 @@ public class HealthController : MonoBehaviour
                 return;
         }
 
+        if (lastDamageTime + immunityAfterDamageTimer > Time.time)
+            return;
+
         health -= damage;
         
         OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { damageAmount = damage, currentHealth = health, owner = gameObject, instigator = _instigator });
@@ -48,7 +67,13 @@ public class HealthController : MonoBehaviour
         {
             bIsDead = true;
             OnHealthChange -= HealthChange;
+            return;
         }
+
+        //Don't play the blinking when the gameobject is dead
+        lastDamageTime = Time.time;
+        if(flashMaterial)
+            StartCoroutine(Blink());
     }
 
     //updates UI
@@ -58,4 +83,28 @@ public class HealthController : MonoBehaviour
             healthUI.SetHealth(e.currentHealth);
     }
 
+    private IEnumerator Blink()
+    {
+        float endTime = Time.time + immunityAfterDamageTimer;
+        while (Time.time <= endTime)
+        {
+            rendererBody.materials = flashingMaterials;
+            yield return new WaitForSeconds(0.1f);
+           
+            rendererBody.materials = defaultMaterials;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private Material[] MakeMaterialArray(Material mat)
+    {
+        List<Material> materials = new List<Material>();
+       
+        foreach (var defMats in defaultMaterials)
+        {
+            materials.Add(flashMaterial);
+        }
+
+        return materials.ToArray();
+    }
 }
