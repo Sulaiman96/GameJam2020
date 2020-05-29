@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 6067054120009881010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.81661, y: 0.508, z: 0.86106}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -126,9 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeSpan: 120
-  projectileSpeed: 3.6
+  isHoming: 0
+  lifeSpan: 20
+  projectileSpeed: 10
+  projectileDamage: 1
   totalBounceAmount: 5
+  rotationForce: 50
   destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
     type: 3}
 --- !u!114 &2671188267657446535
@@ -156,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  activeMaterial: {fileID: 2100000, guid: 7e755a223988c39439804e6c3b13e41b, type: 2}
 --- !u!96 &-556003551984741573
 TrailRenderer:
   serializedVersion: 2

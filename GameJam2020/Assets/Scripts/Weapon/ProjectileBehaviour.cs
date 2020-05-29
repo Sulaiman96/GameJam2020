@@ -126,7 +126,6 @@ public class ProjectileBehaviour : MonoBehaviour
 
     public void SetProjectileLayer(string layer)
     {
-        print(LayerMask.NameToLayer(layer));
         gameObject.layer = LayerMask.NameToLayer(layer);
     }
 

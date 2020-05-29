@@ -23,6 +23,7 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Material playerActiveMaterial = null;
 
     public bool isSwinging { get; set; }
+    public WeaponHUD weaponUI { get; set; }
 
     private WeaponController weapon;
     private GameObject currentWeapon;
@@ -41,12 +42,14 @@ public class WeaponBehaviour : MonoBehaviour
         timeController = GetComponent<TimeController>();
         mouseHandler = GetComponent<MouseHandler>();
         animController = GetComponent<Animator>();
+
     }
 
     void Start()  
     {
+        FindWeaponHUD();
         SpawnWeapon();
-
+        
         if (timeController)
             timeController.OnTimeDilationChange += OnTimeDilationChange;
         else
@@ -88,6 +91,13 @@ public class WeaponBehaviour : MonoBehaviour
 
         if(isHitting)
             HitProjectile();
+    }
+
+    private void FindWeaponHUD()
+    {
+        var playerHUDCanvas = GameObject.FindGameObjectWithTag("PlayerHUD");
+        var weaponUIObject = playerHUDCanvas.transform.GetChild(1);
+        weaponUI = weaponUIObject.GetComponent<WeaponHUD>();
     }
 
     private void OnTimeDilationChange(object sender, TimeController.OnTimeDilationChangeEventArgs e)
@@ -139,6 +149,9 @@ public class WeaponBehaviour : MonoBehaviour
                 return;
 
             weapon.SetOwner(gameObject);
+
+            if (weaponUI)
+                weaponUI.currentWeapon = weapon;
         }
     }
 
