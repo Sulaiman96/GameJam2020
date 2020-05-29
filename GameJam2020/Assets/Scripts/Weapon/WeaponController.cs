@@ -7,8 +7,8 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     private GameObject owner;
-    private List<GameObject> projectiles;
-
+    public List<GameObject> projectiles { get; private set; }
+    
     public Weapon weapon;
 
     private void Start()

@@ -3713,7 +3713,8 @@ MonoBehaviour:
   muzzle: {fileID: 2603712523410002939}
   hitTransform: {fileID: 2603712523981181506}
   hitRange: 1.6
-  playerActiveMaterial: {fileID: 0}
+  playerActiveMaterial: {fileID: 2100000, guid: 7e755a223988c39439804e6c3b13e41b,
+    type: 2}
 --- !u!114 &2603712524157003196
 MonoBehaviour:
   m_ObjectHideFlags: 0
