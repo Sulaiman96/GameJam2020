@@ -620,6 +620,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1720930344 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2603712523473345215, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2603712523430728247}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1805770693
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +784,66 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: rendererBody
+      value: 
+      objectReference: {fileID: 1720930344}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 25605fa2d1035c54f89965e4a3acb039, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b9f8ea057032ad4bad9333b787245b8, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b9f8ea057032ad4bad9333b787245b8, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: de347c13226f1094784a318f3dcb48e2, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7e451370d66cdf740865785dd083cdcb, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b43c0c84e7821d478eea7e0fe33843f, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: flashMaterial.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: f4c868f611aae16448d369b0bf66a723, type: 2}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: immuneDamageTimer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: immunityAfterDamageTimer
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603712524157003199, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb,
+        type: 3}
+      propertyPath: maxHealth
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62ab2e02eba9eee4ab9fc0de28fee4cb, type: 3}
