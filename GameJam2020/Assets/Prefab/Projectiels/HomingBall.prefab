@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 5767602024492977716}
   - component: {fileID: -556003551984741573}
   - component: {fileID: 5394431698715663355}
+  - component: {fileID: 3332942684094828305}
   m_Layer: 10
   m_Name: HomingBall
   m_TagString: Untagged
@@ -395,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHoming: 1
-  blastRadiusColour: {r: 0, g: 1, b: 0, a: 1}
+  blastRadiusColour: {r: 0, g: 0.42699432, b: 1, a: 1}
   DamageRadiusColour: {r: 1, g: 0, b: 0, a: 1}
   rotationForce: 30
   homingLifeSpan: 5
@@ -430,3 +431,16 @@ MonoBehaviour:
   projectileDamage: 1
   destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
     type: 3}
+--- !u!135 &3332942684094828305
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067054120009881010}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

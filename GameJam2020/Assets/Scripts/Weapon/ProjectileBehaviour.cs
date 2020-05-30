@@ -129,6 +129,11 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (isHoming)
+        {
+            DestroyProjectile();
+        }
+        
         if(collision.gameObject.TryGetComponent(out HealthController health))
         {
             health.OnTakeDamage(projectileDamage, owner);
