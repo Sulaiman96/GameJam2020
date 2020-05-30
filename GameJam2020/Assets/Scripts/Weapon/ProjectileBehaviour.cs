@@ -21,7 +21,6 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float explosionWindUpTime = 1f;
     [Range(0,1)]
     [SerializeField] private float windupProjectilePercentageSpeed = 0.5f;
-    [SerializeField] private CameraShake cameraShake;
     [SerializeField] private ParticleSystem explosionParticleEffect = null;
     [SerializeField] private AudioClip onExplosionClip;
     [SerializeField] private UnityEvent onWindUp;
@@ -161,7 +160,7 @@ public class ProjectileBehaviour : MonoBehaviour
             if (explosionParticleEffect)
             {
                 //TODO FIX THE CAMERA SHAKE 
-                StartCoroutine(cameraShake.Shake(0.5f, .4f));
+                //StartCoroutine(cameraShake.Shake(0.5f, .4f));
                 var explosion = Instantiate(explosionParticleEffect.gameObject, transform.position, transform.rotation);
                 Destroy(explosion, explosionParticleEffect.main.duration);
             }
@@ -188,7 +187,7 @@ public class ProjectileBehaviour : MonoBehaviour
                   HealthController hc = nearByObjects.GetComponent<HealthController>();
                   if (hc != null)
                   {
-                      hc.OnTakeDamage(explosionDamage, gameObject);
+                      hc.OnTakeDamage(explosionDamage, owner);
                   }
               }
     }
