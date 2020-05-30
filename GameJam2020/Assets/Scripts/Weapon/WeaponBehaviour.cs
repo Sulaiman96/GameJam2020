@@ -22,6 +22,7 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
     [SerializeField] private Material playerActiveMaterial = null;
+    [SerializeField] private Gradient projectileTrailColor;
     [SerializeField] private UnityEvent OnSwingSound;
 
     public bool isSwinging { get; set; }
@@ -155,6 +156,7 @@ public class WeaponBehaviour : MonoBehaviour
 
             if (weaponUI)
                 weaponUI.currentWeapon = weapon;
+               
         }
     }
 
@@ -183,6 +185,7 @@ public class WeaponBehaviour : MonoBehaviour
                 projectileBehaviour.SetProjectileLayer("PlayerHitProjectiles");
                 projectileBehaviour.SetActiveMaterial(playerActiveMaterial);
                 projectileBehaviour.SetOwner(gameObject);
+                projectileBehaviour.SetTrailColour(projectileTrailColor);
             }
         }
     }

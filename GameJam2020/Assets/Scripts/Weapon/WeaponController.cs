@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
     
     public Weapon weapon;
 
-    private void Start()
+    private void Awake()
     {
         projectiles = new List<GameObject>();
     }

@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        
         gameOverCanvas = GameObject.FindGameObjectWithTag("GameOver");
         gameOverCanvas.SetActive(false);
         

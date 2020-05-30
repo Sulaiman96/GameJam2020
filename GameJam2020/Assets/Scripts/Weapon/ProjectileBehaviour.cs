@@ -13,7 +13,6 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] Color blastRadiusColour = Color.green;
     [SerializeField] Color DamageRadiusColour = Color.red;
     [SerializeField] private float rotationForce = 50f;
-    [SerializeField] private float homingLifeSpan = 3f;
     [SerializeField] private float explosionBlastRadius = 7f;
     [SerializeField] private float explosionDamageRadius = 3f;
     [SerializeField] private float explosionForce = 500f;
@@ -47,6 +46,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private float currentLifeSpan;
     private GameObject owner = null;
     private GameObject player;
+    private TrailRenderer trailRenderer;
     
     #endregion
     
@@ -55,7 +55,9 @@ public class ProjectileBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         timeController = GetComponent<TimeController>();
         materialHandler = GetComponent<MaterialHandler>();
+        trailRenderer = GetComponent<TrailRenderer>();
         player = GameObject.FindWithTag("Player");
+        
     }
     
     private void Start()
@@ -65,10 +67,7 @@ public class ProjectileBehaviour : MonoBehaviour
         else
             Debug.LogWarning("Can't find time controller in " + GetType());
 
-        if (isHoming)
-            currentLifeSpan = homingLifeSpan;
-        else
-            currentLifeSpan = lifeSpan;
+       currentLifeSpan = lifeSpan;
     }
 
     private void Update()
@@ -192,6 +191,11 @@ public class ProjectileBehaviour : MonoBehaviour
               }
     }
 
+    public void SetTrailColour(Gradient trailColor)
+    {
+        trailRenderer.colorGradient = trailColor;
+    }
+
     private void ExplosionBlast()
     {
         var colliders = Physics.OverlapSphere(transform.position, explosionBlastRadius);
@@ -208,7 +212,6 @@ public class ProjectileBehaviour : MonoBehaviour
 
     IEnumerator ExplosionWindUp()
     {
-        Debug.Log("I am waiting for " + explosionWindUpTime);
         yield return new WaitForSeconds(explosionWindUpTime);
         bIsDestroyingProjectile = true;
         DestroyProjectile();
