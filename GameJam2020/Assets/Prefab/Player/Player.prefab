@@ -3865,6 +3865,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   TeamNumber: 0
+  immunityAfterDamageTimer: 1.5
+  flashMaterial: {fileID: 2100000, guid: 25605fa2d1035c54f89965e4a3acb039, type: 2}
+  rendererBody: {fileID: 2603712523473345215}
   healthUI: {fileID: 0}
 --- !u!114 &2603712524157003184
 MonoBehaviour:

@@ -2,17 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(TimeController))]
 public class ProjectileBehaviour : MonoBehaviour
 {
+    #region Variables
+    [Header("Homing Properties")]
     [SerializeField] private bool isHoming = false;
+    [SerializeField] Color blastRadiusColour = Color.green;
+    [SerializeField] Color DamageRadiusColour = Color.red;
+    [SerializeField] private float rotationForce = 50f;
+    [SerializeField] private float homingLifeSpan = 3f;
+    [SerializeField] private float explosionBlastRadius = 7f;
+    [SerializeField] private float explosionDamageRadius = 3f;
+    [SerializeField] private float explosionForce = 500f;
+    [SerializeField] private float explosionDamage = 5f;
+    [SerializeField] private float explosionWindUpTime = 1f;
+    [Range(0,1)]
+    [SerializeField] private float windupProjectilePercentageSpeed = 0.5f;
+    [SerializeField] private CameraShake cameraShake;
+    [SerializeField] private ParticleSystem explosionParticleEffect = null;
+    [SerializeField] private AudioClip onExplosionClip;
+    [SerializeField] private UnityEvent onWindUp;
+    
+
+    private bool triggerExplosion = false;
+    
+    [Header("Projectile Properties")]
+    [SerializeField] private int totalBounceAmount = 10;
     [SerializeField] private float lifeSpan = 60f;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileDamage = 1f;
-    [SerializeField] private int totalBounceAmount = 10;
-    [SerializeField] private float rotationForce = 50f; 
-
+    [SerializeField] private ParticleSystem destroyParticle;
+    
+    public EventHandler OnProjectileDestroyed;
+    
     private bool bIsDestroyingProjectile = false;
     private Rigidbody rb;
     private TimeController timeController;
@@ -20,27 +45,36 @@ public class ProjectileBehaviour : MonoBehaviour
     private int currentBounce = 0;
     private MaterialHandler materialHandler;
     private float currentLifeSpan;
-    
     private GameObject owner = null;
-    private GameObject player;    
-
-    public ParticleSystem destroyParticle;
-    public EventHandler OnProjectileDestroyed;
-
+    private GameObject player;
+    
+    #endregion
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         timeController = GetComponent<TimeController>();
         materialHandler = GetComponent<MaterialHandler>();
         player = GameObject.FindWithTag("Player");
+    }
+    
+    private void Start()
+    {
+        if (timeController)
+            timeController.OnTimeDilationChange += OnTimeDilationChange;
+        else
+            Debug.LogWarning("Can't find time controller in " + GetType());
 
-        currentLifeSpan = lifeSpan;
+        if (isHoming)
+            currentLifeSpan = homingLifeSpan;
+        else
+            currentLifeSpan = lifeSpan;
     }
 
     private void Update()
     {
         currentLifeSpan -= Time.deltaTime;
-        if (currentLifeSpan < 0 && bIsDestroyingProjectile == false)
+        if (currentLifeSpan <= 0f && !bIsDestroyingProjectile)
         {
             bIsDestroyingProjectile = true;
             DestroyProjectile();
@@ -55,23 +89,24 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             Vector3 direction = (GetTargetLocation() - rb.position).normalized;
             Vector3 rotationAmount = Vector3.Cross(transform.forward, direction);
-
-            //TODO BECAUSE THE FORCE IS CONSTANTLY BEING ADDED, IT AFFECTS THE FORCE FIELD, FIND A WAY AROUND.
-            rb.angularVelocity = rotationAmount * rotationForce * timeDelation;
-            rb.velocity = transform.forward * projectileSpeed * timeDelation;
+            if (triggerExplosion)
+            {
+                rb.angularVelocity = rotationAmount * rotationForce * windupProjectilePercentageSpeed;
+                rb.velocity = transform.forward * projectileSpeed * windupProjectilePercentageSpeed;
+            }
+            else
+            {
+                //TODO BECAUSE THE FORCE IS CONSTANTLY BEING ADDED, IT AFFECTS THE FORCE FIELD, FIND A WAY AROUND.
+                rb.angularVelocity = rotationAmount * rotationForce;
+                rb.velocity = transform.forward * projectileSpeed;
+            }
             
             transform.LookAt(GetTargetLocation());
         }
-    }
-    
-    private void Start()
-    {
-        if (timeController)
-            timeController.OnTimeDilationChange += OnTimeDilationChange;
-        else
-            Debug.LogWarning("Can't find time controller in " + GetType());
+        
     }
 
+    #region Private Methods
     private void OnTimeDilationChange(object sender, TimeController.OnTimeDilationChangeEventArgs e)
     {
         timeDelation = e.newTimeDilation;
@@ -81,19 +116,25 @@ public class ProjectileBehaviour : MonoBehaviour
         rb.AddForce((prefVelocity).normalized * projectileSpeed * timeDelation, ForceMode.Impulse);
     }
 
-    public void LaunchProjectile(Vector3 targetLocation)
+    private void OnTriggerEnter(Collider other)
     {
-        Vector3 directionToLaunch = (targetLocation - transform.position).normalized;
-        directionToLaunch.y = 0;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(directionToLaunch * projectileSpeed * timeDelation, ForceMode.Impulse);
-
+        if (other.CompareTag("Player") && !triggerExplosion)
+        {
+            triggerExplosion = true;
+            onWindUp.Invoke();
+            //TODO Wait for a few seconds (during this time play a bomb timer and some effect that shows its about to blow up)
+            StartCoroutine(ExplosionWindUp());
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        HealthController health;
-        if(collision.gameObject.TryGetComponent<HealthController>(out health))
+        if (isHoming)
+        {
+            DestroyProjectile();
+        }
+        
+        if(collision.gameObject.TryGetComponent(out HealthController health))
         {
             health.OnTakeDamage(projectileDamage, owner);
         }
@@ -109,13 +150,75 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void DestroyProjectile()
     {
-        if (destroyParticle)
+        if (isHoming)
         {
-            var spawnedImpact = Instantiate(destroyParticle.gameObject, transform.position, transform.rotation) as GameObject;
-            Destroy(spawnedImpact, destroyParticle.main.duration);
+            if (explosionParticleEffect)
+            {
+                //TODO FIX THE CAMERA SHAKE 
+                StartCoroutine(cameraShake.Shake(0.5f, .4f));
+                var explosion = Instantiate(explosionParticleEffect.gameObject, transform.position, transform.rotation);
+                Destroy(explosion, explosionParticleEffect.main.duration);
+            }
+            ExplosionBlast();
+            ExplosionDamage();
         }
-        
+        else
+        {
+            if (destroyParticle)
+            {
+                var spawnedImpact = Instantiate(destroyParticle.gameObject, transform.position, transform.rotation);
+                Destroy(spawnedImpact, destroyParticle.main.duration);
+            }
+        }
         Destroy(gameObject);
+    }
+
+    private void ExplosionDamage()
+    { 
+        AudioSource.PlayClipAtPoint(onExplosionClip, gameObject.transform.position);
+        var colliders = Physics.OverlapSphere(transform.position, explosionDamageRadius);
+              foreach (Collider nearByObjects in colliders)
+              {
+                  HealthController hc = nearByObjects.GetComponent<HealthController>();
+                  if (hc != null)
+                  {
+                      hc.OnTakeDamage(explosionDamage, gameObject);
+                  }
+              }
+    }
+
+    private void ExplosionBlast()
+    {
+        var colliders = Physics.OverlapSphere(transform.position, explosionBlastRadius);
+        foreach (Collider nearByObjects in colliders)
+        {
+            Rigidbody rb = nearByObjects.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                //BUG THE PLAYER DOES NOT GET PUSHED BACK BECAUSE OF CHARACTER CONTROLLER.
+                rb.AddExplosionForce(explosionForce, transform.position, explosionBlastRadius);
+            }
+        }
+    }
+
+    IEnumerator ExplosionWindUp()
+    {
+        Debug.Log("I am waiting for " + explosionWindUpTime);
+        yield return new WaitForSeconds(explosionWindUpTime);
+        bIsDestroyingProjectile = true;
+        DestroyProjectile();
+    }
+    
+    #endregion
+    
+    #region Public Methods
+    public void LaunchProjectile(Vector3 targetLocation)
+    {
+        Vector3 directionToLaunch = (targetLocation - transform.position).normalized;
+        directionToLaunch.y = 0;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(directionToLaunch * projectileSpeed * timeDelation, ForceMode.Impulse);
+
     }
     
     public Vector3 GetTargetLocation()
@@ -140,4 +243,18 @@ public class ProjectileBehaviour : MonoBehaviour
         if(materialHandler)
             materialHandler.UseActiveMaterial(activeMaterial);
     }
+
+    public bool IsHoming => isHoming;
+
+    #endregion
+
+    #region Gizmos
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = blastRadiusColour;
+        Gizmos.DrawWireSphere(transform.position, explosionBlastRadius);
+        Gizmos.color = DamageRadiusColour;
+        Gizmos.DrawWireSphere(transform.position, explosionDamageRadius);
+    }
+    #endregion
 }
