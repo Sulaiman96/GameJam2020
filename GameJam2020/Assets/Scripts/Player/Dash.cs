@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class Dash : MonoBehaviour
@@ -9,6 +10,7 @@ public class Dash : MonoBehaviour
     [SerializeField] private float dashSpeed = 30f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 0.8f;
+    [SerializeField] private UnityEvent onDash;
 
     private CharacterController controller;
     private Vector3 currentPosition;
@@ -16,6 +18,7 @@ public class Dash : MonoBehaviour
     private bool letPlayerDash = true;
     private bool isDashing = false;
     private TrailRenderer dashEffect;
+    
 
     public Vector3 GetMovementDirection
     {
@@ -40,15 +43,22 @@ public class Dash : MonoBehaviour
         currentPosition = transform.position;
         if (Input.GetKeyDown(KeyCode.Space) && letPlayerDash == true)
         {
+            if (controller.velocity == Vector3.zero)
+                return;
+
             letPlayerDash = false;
             isDashing = true;
 
             if (dashEffect)
                 dashEffect.emitting = true;
 
+            if(controller.velocity != Vector3.zero)
+                onDash.Invoke();
+
             StartCoroutine(DashWaitTime());
         }
 
+       
         if (isDashing == true ) 
             Dashing();
     }
