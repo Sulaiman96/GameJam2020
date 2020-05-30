@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 15
   colour: {r: 0, g: 0.7568512, b: 1, a: 1}
-  projectile: {fileID: 6067054120009881010, guid: d80eb7629c2da924da0a8388569fcd83,
+  projectile: {fileID: 3264413084702768952, guid: 93412691bb9853e41bbed3ade2d319ea,
     type: 3}
   timeBetweenAttack: 2
   turretBarrel: {fileID: 4364662597057219035}
@@ -158,7 +158,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4364662596192716277}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.92, y: 0, z: 6.57}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:

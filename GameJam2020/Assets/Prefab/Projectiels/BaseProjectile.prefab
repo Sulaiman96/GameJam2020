@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2496244407445306773
+--- !u!1 &5044737795247660074
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1272712827410049239}
-  - component: {fileID: 8506956196381482869}
-  m_Layer: 10
-  m_Name: Windup Sound
+  - component: {fileID: 3398598296669745380}
+  - component: {fileID: 6351378465357417339}
+  - component: {fileID: 1834916830526608637}
+  m_Layer: 0
+  m_Name: ImpactSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1272712827410049239
+--- !u!4 &3398598296669745380
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2496244407445306773}
+  m_GameObject: {fileID: 5044737795247660074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,19 +32,19 @@ Transform:
   m_Father: {fileID: 5465899089781838906}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &8506956196381482869
+--- !u!82 &6351378465357417339
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2496244407445306773}
+  m_GameObject: {fileID: 5044737795247660074}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: eec3bf121b316d64ca1c8aac7573a2f4, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -127,6 +128,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1834916830526608637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044737795247660074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f381832796fb1247a778d00399348bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 24a8d922eddee5a40a8133d85148e077, type: 3}
+  - {fileID: 8300000, guid: 05137e0a60bf64b4c88db9a01177cef7, type: 3}
+  - {fileID: 8300000, guid: e0e019694fd089b4e8c4a8b343915f31, type: 3}
+  - {fileID: 8300000, guid: 4c0fa054a75127943a54de41bbf1785f, type: 3}
+  - {fileID: 8300000, guid: f5b2eeebe839b9d428215d3de5f1b4d5, type: 3}
 --- !u!1 &6067054120009881010
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,13 +159,12 @@ GameObject:
   - component: {fileID: 3404141927365989077}
   - component: {fileID: 2231251757777071009}
   - component: {fileID: 183291549641486787}
+  - component: {fileID: -236447420598599629}
   - component: {fileID: 2671188267657446535}
-  - component: {fileID: 5767602024492977716}
+  - component: {fileID: 6925291989971225151}
   - component: {fileID: -556003551984741573}
-  - component: {fileID: 5394431698715663355}
-  - component: {fileID: 3332942684094828305}
-  m_Layer: 10
-  m_Name: HomingBall
+  m_Layer: 0
+  m_Name: BaseProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +181,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
-  - {fileID: 1272712827410049239}
+  - {fileID: 3398598296669745380}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -222,10 +240,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6067054120009881010}
   m_Material: {fileID: 13400000, guid: a660cc4b36c98ab40a4f4a83ecef0077, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5.72
+  m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &183291549641486787
 Rigidbody:
@@ -238,11 +256,70 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &-236447420598599629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067054120009881010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHoming: 0
+  blastRadiusColour: {r: 0, g: 1, b: 0, a: 1}
+  DamageRadiusColour: {r: 1, g: 0, b: 0, a: 1}
+  rotationForce: 50
+  homingLifeSpan: 3
+  explosionBlastRadius: 7
+  explosionDamageRadius: 3
+  explosionForce: 500
+  explosionDamage: 5
+  explosionWindUpTime: 1
+  windupProjectilePercentageSpeed: 0.5
+  explosionParticleEffect: {fileID: 0}
+  onExplosionClip: {fileID: 0}
+  onWindUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  totalBounceAmount: 5
+  lifeSpan: 20
+  projectileSpeed: 10
+  projectileDamage: 1
+  destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
+    type: 3}
+  onImpact:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1834916830526608637}
+        m_MethodName: PlayRandomClip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2671188267657446535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0ad98f69347e24cbc606daa3834ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5767602024492977716
+--- !u!114 &6925291989971225151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e83687e3ea6f24ba5275d7ffd50eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaterial: {fileID: 2100000, guid: de347c13226f1094784a318f3dcb48e2, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
 --- !u!96 &-556003551984741573
 TrailRenderer:
   serializedVersion: 2
@@ -347,8 +424,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0.018185139, a: 1}
-      key1: {r: 0, g: 0, b: 0, a: 0.8627451}
+      key0: {r: 0.095674604, g: 0.7165753, b: 0.8113208, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -364,7 +441,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 58982
+      atime1: 65535
       atime2: 0
       atime3: 0
       atime4: 0
@@ -383,64 +460,3 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &5394431698715663355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6067054120009881010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 753057704edc59c4bb5daa341fd448ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isHoming: 1
-  blastRadiusColour: {r: 0, g: 0.42699432, b: 1, a: 1}
-  DamageRadiusColour: {r: 1, g: 0, b: 0, a: 1}
-  rotationForce: 30
-  homingLifeSpan: 5
-  explosionBlastRadius: 10
-  explosionDamageRadius: 5
-  explosionForce: 1000
-  explosionDamage: 5
-  explosionWindUpTime: 2
-  windupProjectilePercentageSpeed: 0.5
-  cameraShake: {fileID: 6422531537617486948, guid: db740f7bc643d77438e2320447b2d287,
-    type: 3}
-  explosionParticleEffect: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
-    type: 3}
-  onExplosionClip: {fileID: 8300000, guid: f9eb44b85c96be5429737d4dcadbfa3b, type: 3}
-  onWindUp:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8506956196381482869}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  totalBounceAmount: 10
-  lifeSpan: 30
-  projectileSpeed: 5
-  projectileDamage: 1
-  destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
-    type: 3}
---- !u!135 &3332942684094828305
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6067054120009881010}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

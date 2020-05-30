@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07269568aeb13b4c884daa0357693bc, type: 3}
   m_Name: Bat1
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6067054120009881010, guid: 1dc42272df227704d9990b5fea34bad9,
+  projectilePrefab: {fileID: 7616454953338309821, guid: 9863b2db81c97f1468aa50fb4e38b47e,
     type: 3}
   maxAmountOfProjectiles: 4

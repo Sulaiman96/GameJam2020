@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WeaponHUD : MonoBehaviour
 {
-    public WeaponController currentWeapon;
+    [HideInInspector]public WeaponController currentWeapon;
 
     private Text text;
     private int ammoDisplay = 0;
@@ -26,7 +26,7 @@ public class WeaponHUD : MonoBehaviour
     {
         if (!currentWeapon)
             return;
-
+        
         maxAmmoDisplay = currentWeapon.weapon.maxAmountOfProjectiles;
         ammoDisplay = maxAmmoDisplay - currentWeapon.projectiles.Count;
         text.text = string.Format("{0}/{1}", ammoDisplay, maxAmmoDisplay);
