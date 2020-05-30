@@ -35,7 +35,8 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileDamage = 1f;
     [SerializeField] private ParticleSystem destroyParticle;
-    
+    [SerializeField] private UnityEvent onImpact;
+
     public EventHandler OnProjectileDestroyed;
     
     private bool bIsDestroyingProjectile = false;
@@ -140,7 +141,12 @@ public class ProjectileBehaviour : MonoBehaviour
         }
 
         if (++currentBounce >= totalBounceAmount)
+        {
             DestroyProjectile();
+            return;
+        }
+
+        onImpact.Invoke();
     }
 
     private void OnDestroy()

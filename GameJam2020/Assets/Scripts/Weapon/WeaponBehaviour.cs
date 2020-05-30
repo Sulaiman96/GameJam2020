@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(TimeController))]
 public class WeaponBehaviour : MonoBehaviour
@@ -21,6 +22,7 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
     [SerializeField] private Material playerActiveMaterial = null;
+    [SerializeField] private UnityEvent OnSwingSound;
 
     public bool isSwinging { get; set; }
     public WeaponHUD weaponUI { get; set; }
@@ -110,8 +112,9 @@ public class WeaponBehaviour : MonoBehaviour
         if (isSwinging)
             return;
 
+        OnSwingSound.Invoke();
         // Check if we are not in the swing state
-        if(animController && !animController.GetCurrentAnimatorStateInfo(0).IsName("Swing"))
+        if (animController && !animController.GetCurrentAnimatorStateInfo(0).IsName("Swing"))
         {
             isSwinging = true;
             animController.SetBool("IsSwinging", true);
