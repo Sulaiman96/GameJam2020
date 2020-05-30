@@ -267,10 +267,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHoming: 0
+  rotationForce: 50
+  homingLifeSpan: 3
+  explosionRadius: 10
+  explosionForce: 500
+  explosionParticleEffect: {fileID: 0}
+  totalBounceAmount: 10
   lifeSpan: 60
   projectileSpeed: 10
   projectileDamage: 1
-  totalBounceAmount: 10
-  rotationForce: 50
   destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
     type: 3}
