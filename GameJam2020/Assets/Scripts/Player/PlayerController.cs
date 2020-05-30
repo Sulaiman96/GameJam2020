@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.lockState = CursorLockMode.None; 
         if (gameOverCanvas)
             gameOverCanvas.SetActive(true);
     }
