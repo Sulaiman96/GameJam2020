@@ -19,12 +19,15 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float explosionForce = 500f;
     [SerializeField] private float explosionDamage = 5f;
     [SerializeField] private float explosionWindUpTime = 1f;
+    [Range(0,1)]
+    [SerializeField] private float windupProjectilePercentageSpeed = 0.5f;
     [SerializeField] private CameraShake cameraShake;
     [SerializeField] private ParticleSystem explosionParticleEffect = null;
+    [SerializeField] private AudioClip onExplosionClip;
     [SerializeField] private UnityEvent onWindUp;
-    [SerializeField] private UnityEvent onExplosion;
+    
 
-    private bool isDisabled = false;
+    private bool triggerExplosion = false;
     
     [Header("Projectile Properties")]
     [SerializeField] private int totalBounceAmount = 10;
@@ -86,16 +89,16 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             Vector3 direction = (GetTargetLocation() - rb.position).normalized;
             Vector3 rotationAmount = Vector3.Cross(transform.forward, direction);
-            if (isDisabled)
+            if (triggerExplosion)
             {
-                rb.angularVelocity = Vector3.zero;
-                rb.velocity = Vector3.zero;
+                rb.angularVelocity = rotationAmount * rotationForce * windupProjectilePercentageSpeed;
+                rb.velocity = transform.forward * projectileSpeed * windupProjectilePercentageSpeed;
             }
             else
             {
                 //TODO BECAUSE THE FORCE IS CONSTANTLY BEING ADDED, IT AFFECTS THE FORCE FIELD, FIND A WAY AROUND.
-                rb.angularVelocity = rotationAmount * rotationForce * timeDelation;
-                rb.velocity = transform.forward * projectileSpeed * timeDelation;
+                rb.angularVelocity = rotationAmount * rotationForce;
+                rb.velocity = transform.forward * projectileSpeed;
             }
             
             transform.LookAt(GetTargetLocation());
@@ -115,9 +118,9 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isDisabled)
+        if (other.CompareTag("Player") && !triggerExplosion)
         {
-            isDisabled = true;
+            triggerExplosion = true;
             onWindUp.Invoke();
             //TODO Wait for a few seconds (during this time play a bomb timer and some effect that shows its about to blow up)
             StartCoroutine(ExplosionWindUp());
@@ -149,11 +152,10 @@ public class ProjectileBehaviour : MonoBehaviour
                 //TODO FIX THE CAMERA SHAKE 
                 StartCoroutine(cameraShake.Shake(0.5f, .4f));
                 var explosion = Instantiate(explosionParticleEffect.gameObject, transform.position, transform.rotation);
-                var durationOfEffect = explosionParticleEffect.main.duration;
-                ExplosionBlast();
-                ExplosionDamage();
-                Destroy(explosion, durationOfEffect);
+                Destroy(explosion, explosionParticleEffect.main.duration);
             }
+            ExplosionBlast();
+            ExplosionDamage();
         }
         else
         {
@@ -163,14 +165,12 @@ public class ProjectileBehaviour : MonoBehaviour
                 Destroy(spawnedImpact, destroyParticle.main.duration);
             }
         }
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.GetComponent<TrailRenderer>().enabled = false;
-        Destroy(gameObject, 1f);
+        Destroy(gameObject);
     }
 
     private void ExplosionDamage()
     { 
-        onExplosion.Invoke();
+        AudioSource.PlayClipAtPoint(onExplosionClip, gameObject.transform.position);
         var colliders = Physics.OverlapSphere(transform.position, explosionDamageRadius);
               foreach (Collider nearByObjects in colliders)
               {
@@ -238,6 +238,9 @@ public class ProjectileBehaviour : MonoBehaviour
         if(materialHandler)
             materialHandler.UseActiveMaterial(activeMaterial);
     }
+
+    public bool IsHoming => isHoming;
+
     #endregion
 
     #region Gizmos

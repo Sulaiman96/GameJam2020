@@ -169,12 +169,12 @@ public class WeaponBehaviour : MonoBehaviour
             return;
 
        Collider[] objectsHit = Physics.OverlapSphere(hitTransform.position, hitRange);
-
-        foreach (var hitObj in objectsHit)
+       foreach (var hitObj in objectsHit)
         {
             var projectileBehaviour = hitObj.GetComponent<ProjectileBehaviour>();
             if (projectileBehaviour && !projectilesHit.Contains(projectileBehaviour))
             {
+                if (projectileBehaviour.IsHoming) return;
                 projectilesHit.Add(projectileBehaviour);
                 projectileBehaviour.LaunchProjectile(targetLocation);
                 projectileBehaviour.SetProjectileLayer("PlayerHitProjectiles");

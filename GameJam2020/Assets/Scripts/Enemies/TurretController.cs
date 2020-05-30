@@ -23,6 +23,11 @@ public class TurretController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+    private void Start()
+    {
+        timeSinceLastAttack = timeBetweenAttack;
+    }
+
     private void Update()
     {
         timeSinceLastAttack += Time.deltaTime;
@@ -31,7 +36,6 @@ public class TurretController : MonoBehaviour
             Attack();
             timeSinceLastAttack = 0;
         }
-        
         transform.LookAt(player.transform);
     }
     
