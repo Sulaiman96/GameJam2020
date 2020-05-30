@@ -13,19 +13,20 @@ public class TurretController : MonoBehaviour
     [SerializeField] private Transform turretBarrel;
     [SerializeField] private Material turretActiveMaterial = null;
 
-    private ProjectileBehaviour projectileBehaviour;
+    private HealthController healthController;
     private GameObject player;    
     private float timeSinceLastAttack = 0f;
 
     private void Awake()
     {
-        projectileBehaviour = projectile.GetComponent<ProjectileBehaviour>();
+        healthController = GetComponent<HealthController>();
         player = GameObject.FindWithTag("Player");
     }
 
     private void Start()
     {
         timeSinceLastAttack = timeBetweenAttack;
+        healthController.OnHealthChange += HealthChange;
     }
 
     private void Update()
@@ -39,8 +40,6 @@ public class TurretController : MonoBehaviour
         transform.LookAt(player.transform);
     }
     
-    
-
     private void Attack()
     {
         GameObject p = Instantiate(projectile, turretBarrel.position, Quaternion.identity);
@@ -55,7 +54,15 @@ public class TurretController : MonoBehaviour
         return Vector3.Distance(player.transform.position, transform.position) < attackRange;
     }
 
-    
+    private void HealthChange(object sender, HealthController.OnHealthChangeEventArgs e)
+    {
+        if (e.currentHealth <= 0)
+        {
+            healthController.OnHealthChange -= HealthChange;
+            Destroy(gameObject);
+        }
+    }
+
     #region Gizmos
     //Called by Unity to draw gizmos
     private void OnDrawGizmosSelected()

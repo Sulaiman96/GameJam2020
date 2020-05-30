@@ -50,7 +50,7 @@ public class HealthController : MonoBehaviour
 
     public void OnTakeDamage(float damage, GameObject _instigator)
     {
-        if (_instigator.TryGetComponent<HealthController>(out var instigatorHealthController))
+        if (_instigator && _instigator.TryGetComponent<HealthController>(out var instigatorHealthController))
         {
             if (instigatorHealthController.TeamNumber == TeamNumber)
                 return;
