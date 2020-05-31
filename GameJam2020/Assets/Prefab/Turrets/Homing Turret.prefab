@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c5280f4bce1184a856721f7ffd722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
+  maxHealth: 4
   TeamNumber: 1
   immunityAfterDamageTimer: 1.5
   flashMaterial: {fileID: 2100000, guid: 25605fa2d1035c54f89965e4a3acb039, type: 2}
@@ -260,7 +260,7 @@ MonoBehaviour:
   colour: {r: 0, g: 0.47207546, b: 1, a: 1}
   projectile: {fileID: 8974330260955648661, guid: 8ad746be784a08c40afc22c8c714abe3,
     type: 3}
-  timeBetweenAttack: 2
+  timeBetweenAttack: 2.4
   turretBarrel: {fileID: 3256589208498756786}
   turretActiveMaterial: {fileID: 2100000, guid: 5b43c0c84e7821d478eea7e0fe33843f,
     type: 2}

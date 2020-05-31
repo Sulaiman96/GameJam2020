@@ -13,7 +13,8 @@ public class WeaponHUD : MonoBehaviour
 
     private void Awake()
     {
-        text = GetComponent<Text>();
+        var childTransform = transform.GetChild(0);
+        text = childTransform.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class WeaponHUD : MonoBehaviour
     {
         if (!currentWeapon)
             return;
-        
+
         maxAmmoDisplay = currentWeapon.weapon.maxAmountOfProjectiles;
         ammoDisplay = maxAmmoDisplay - currentWeapon.projectiles.Count;
         text.text = string.Format("{0}/{1}", ammoDisplay, maxAmmoDisplay);
