@@ -27,7 +27,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private LayerMask ExplosionLayer;
     private bool triggerExplosion = false;
-    private float spawnProjectileYxis = 1.67f;
+   
 
     [Header("Projectile Properties")]
     [SerializeField] private int totalBounceAmount = 10;
@@ -35,7 +35,9 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileDamage = 1f;
     [SerializeField] private ParticleSystem destroyParticle = null;
+    [SerializeField] private float spawnProjectileYxis = 1.67f;
     [SerializeField] private UnityEvent onImpact = null;
+   
 
     public EventHandler OnProjectileDestroyed;
     

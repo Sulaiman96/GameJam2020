@@ -277,7 +277,6 @@ MonoBehaviour:
   blastRadiusColour: {r: 0, g: 1, b: 0, a: 1}
   DamageRadiusColour: {r: 1, g: 0, b: 0, a: 1}
   rotationForce: 50
-  homingLifeSpan: 3
   explosionBlastRadius: 7
   explosionDamageRadius: 3
   explosionForce: 500
@@ -306,6 +305,7 @@ MonoBehaviour:
   projectileDamage: 1
   destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
     type: 3}
+  spawnProjectileYxis: 2.6
   onImpact:
     m_PersistentCalls:
       m_Calls:
