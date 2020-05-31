@@ -21,8 +21,8 @@ public class ProjectileBehaviour : MonoBehaviour
     [Range(0,1)]
     [SerializeField] private float windupProjectilePercentageSpeed = 0.5f;
     [SerializeField] private ParticleSystem explosionParticleEffect = null;
-    [SerializeField] private AudioClip onExplosionClip;
-    [SerializeField] private UnityEvent onWindUp;
+    [SerializeField] private AudioClip onExplosionClip = null;
+    [SerializeField] private UnityEvent onWindUp = default;
     private LayerMask ExplosionLayer;
 
     private bool triggerExplosion = false;
@@ -32,8 +32,8 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float lifeSpan = 60f;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileDamage = 1f;
-    [SerializeField] private ParticleSystem destroyParticle;
-    [SerializeField] private UnityEvent onImpact;
+    [SerializeField] private ParticleSystem destroyParticle = null;
+    [SerializeField] private UnityEvent onImpact = null;
 
     public EventHandler OnProjectileDestroyed;
     

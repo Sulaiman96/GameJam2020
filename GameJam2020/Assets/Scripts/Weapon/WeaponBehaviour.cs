@@ -22,8 +22,8 @@ public class WeaponBehaviour : MonoBehaviour
     [SerializeField] private Transform hitTransform = null;
     [SerializeField] private float hitRange = 0;
     [SerializeField] private Material playerActiveMaterial = null;
-    [SerializeField] private Gradient projectileTrailColor;
-    [SerializeField] private UnityEvent OnSwingSound;
+    [SerializeField] private Gradient projectileTrailColor = null;
+    [SerializeField] private UnityEvent OnSwingSound = default;
 
     public bool isSwinging { get; set; }
     public WeaponHUD weaponUI { get; set; }

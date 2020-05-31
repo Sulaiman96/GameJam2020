@@ -9,11 +9,11 @@ public class TurretController : MonoBehaviour
 {
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private Color colour = Color.black;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject projectile = null;
     [SerializeField] private float timeBetweenAttack = 2f;
-    [SerializeField] private Transform turretBarrel;
+    [SerializeField] private Transform turretBarrel = null;
     [SerializeField] private Material turretActiveMaterial = null;
-    [SerializeField] private UnityEvent OnFire;
+    [SerializeField] private UnityEvent OnFire = default;
 
     private HealthController healthController;
     private GameObject player;    

@@ -21,7 +21,7 @@ TagManager:
   - PlayerHitProjectiles
   - 'EnemyHitProjectiles '
   - InvisibleWall
-  - 
+  - ExplosionLayer
   - 
   - 
   - 
