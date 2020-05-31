@@ -17,12 +17,17 @@ public class Switch : MonoBehaviour
 
     private void Awake()
     {
-        ren = GetComponent<Renderer>();
+        if (transform.GetChild(0))
+        {
+            ren = transform.GetChild(0).gameObject.GetComponent<Renderer>();
+        }
     }
 
     void Start()
     {
-        if(ren)
+       
+        
+        if (ren)
          defMaterial = ren.material;
     }
 
