@@ -25,8 +25,6 @@ public class Switch : MonoBehaviour
 
     void Start()
     {
-       
-        
         if (ren)
          defMaterial = ren.material;
     }
