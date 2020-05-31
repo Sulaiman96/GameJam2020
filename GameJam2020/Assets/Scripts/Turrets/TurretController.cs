@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Events;
 
 public class TurretController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] private float timeBetweenAttack = 2f;
     [SerializeField] private Transform turretBarrel;
     [SerializeField] private Material turretActiveMaterial = null;
+    [SerializeField] private UnityEvent OnFire;
 
     private HealthController healthController;
     private GameObject player;    
@@ -47,6 +49,7 @@ public class TurretController : MonoBehaviour
         projectileBehaviourComponent.SetOwner(gameObject);
         projectileBehaviourComponent.SetActiveMaterial(turretActiveMaterial);
         projectileBehaviourComponent.LaunchProjectile(projectileBehaviourComponent.GetTargetLocation());
+        OnFire.Invoke();
     }
     
     private bool InAttackRange()
