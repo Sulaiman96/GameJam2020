@@ -10,7 +10,7 @@ public class Dash : MonoBehaviour
     [SerializeField] private float dashSpeed = 30f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 0.8f;
-    [SerializeField] private UnityEvent onDash;
+    [SerializeField] private UnityEvent onDash = default;
 
     private CharacterController controller;
     private Vector3 currentPosition;

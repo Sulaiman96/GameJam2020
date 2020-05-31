@@ -21,9 +21,9 @@ public class ProjectileBehaviour : MonoBehaviour
     [Range(0,1)]
     [SerializeField] private float windupProjectilePercentageSpeed = 0.5f;
     [SerializeField] private ParticleSystem explosionParticleEffect = null;
-    [SerializeField] private AudioClip onExplosionClip;
-    [SerializeField] private UnityEvent onWindUp;
-    
+    [SerializeField] private AudioClip onExplosionClip = null;
+    [SerializeField] private UnityEvent onWindUp = default;
+    private LayerMask ExplosionLayer;
 
     private bool triggerExplosion = false;
     
@@ -32,8 +32,8 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private float lifeSpan = 60f;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float projectileDamage = 1f;
-    [SerializeField] private ParticleSystem destroyParticle;
-    [SerializeField] private UnityEvent onImpact;
+    [SerializeField] private ParticleSystem destroyParticle = null;
+    [SerializeField] private UnityEvent onImpact = null;
 
     public EventHandler OnProjectileDestroyed;
     
@@ -57,7 +57,7 @@ public class ProjectileBehaviour : MonoBehaviour
         materialHandler = GetComponent<MaterialHandler>();
         trailRenderer = GetComponent<TrailRenderer>();
         player = GameObject.FindWithTag("Player");
-        
+        ExplosionLayer = LayerMask.NameToLayer("ExplosionLayer");
     }
     
     private void Start()
@@ -181,14 +181,24 @@ public class ProjectileBehaviour : MonoBehaviour
     { 
         AudioSource.PlayClipAtPoint(onExplosionClip, gameObject.transform.position);
         var colliders = Physics.OverlapSphere(transform.position, explosionDamageRadius);
-              foreach (Collider nearByObjects in colliders)
-              {
-                  HealthController hc = nearByObjects.GetComponent<HealthController>();
-                  if (hc != null)
-                  {
-                      hc.OnTakeDamage(explosionDamage, owner);
-                  }
-              }
+        foreach (Collider nearByObjects in colliders)
+        {
+            HealthController hc = nearByObjects.GetComponent<HealthController>();
+            if (hc == null)
+                continue;
+
+            var startPos = transform.position;
+            var dir = hc.transform.position - startPos;
+
+            RaycastHit hit;
+            if(Physics.Raycast(startPos, dir, out hit))
+            {
+                if (hit.transform.gameObject != hc.gameObject)
+                    continue;
+
+                hc.OnTakeDamage(explosionDamage, owner);
+            }
+        }
     }
 
     public void SetTrailColour(Gradient trailColor)
@@ -202,9 +212,18 @@ public class ProjectileBehaviour : MonoBehaviour
         foreach (Collider nearByObjects in colliders)
         {
             Rigidbody rb = nearByObjects.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (rb == null)
+                continue;
+
+            var startPos = transform.position;
+            var dir = rb.transform.position - startPos;
+           
+            RaycastHit hit;
+            if (Physics.Raycast(startPos, dir, out hit))
             {
-                //BUG THE PLAYER DOES NOT GET PUSHED BACK BECAUSE OF CHARACTER CONTROLLER.
+                if (hit.transform.gameObject != rb.gameObject)
+                    continue;
+
                 rb.AddExplosionForce(explosionForce, transform.position, explosionBlastRadius);
             }
         }

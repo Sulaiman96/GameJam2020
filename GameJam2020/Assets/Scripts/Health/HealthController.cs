@@ -10,9 +10,9 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private byte TeamNumber = 0;
     [SerializeField] private float immunityAfterDamageTimer = 1.5f;
-    [SerializeField] private Material flashMaterial;
-    [SerializeField] private Renderer rendererBody;
-    [SerializeField] private TakeDamageEvent onDamageTextSpawn;
+    [SerializeField] private Material flashMaterial = null;
+    [SerializeField] private Renderer rendererBody = null;
+    [SerializeField] private TakeDamageEvent onDamageTextSpawn = null;
     [HideInInspector] public HealthBarUI healthUI;
 
     private float health = 10f;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayRandomSound : MonoBehaviour
 {
      
-    [SerializeField] private AudioClip[] audioClips;
+    [SerializeField] private AudioClip[] audioClips = null;
 
     private AudioSource audioSource;
 
