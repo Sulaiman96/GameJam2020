@@ -23,10 +23,12 @@ public class ProjectileBehaviour : MonoBehaviour
     [SerializeField] private ParticleSystem explosionParticleEffect = null;
     [SerializeField] private AudioClip onExplosionClip = null;
     [SerializeField] private UnityEvent onWindUp = default;
-    private LayerMask ExplosionLayer;
-
-    private bool triggerExplosion = false;
     
+
+    private LayerMask ExplosionLayer;
+    private bool triggerExplosion = false;
+    private float spawnProjectileYxis = 1.67f;
+
     [Header("Projectile Properties")]
     [SerializeField] private int totalBounceAmount = 10;
     [SerializeField] private float lifeSpan = 60f;
@@ -64,10 +66,14 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (timeController)
             timeController.OnTimeDilationChange += OnTimeDilationChange;
-        else
-            Debug.LogWarning("Can't find time controller in " + GetType());
 
        currentLifeSpan = lifeSpan;
+
+        // we set all Y axis projectiles to the same value to 
+        // allow them to bounce off each other
+        var pos = transform.position;
+        pos = new Vector3(pos.x, spawnProjectileYxis, pos.z);
+        transform.position = pos;
     }
 
     private void Update()

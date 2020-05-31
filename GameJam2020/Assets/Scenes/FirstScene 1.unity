@@ -307,6 +307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TipsMovement
       objectReference: {fileID: 0}
+    - target: {fileID: 1130801232258434908, guid: fdddb924646748044be084998bcdb7cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdddb924646748044be084998bcdb7cf, type: 3}
 --- !u!4 &463760539 stripped
@@ -2120,7 +2125,7 @@ PrefabInstance:
     - target: {fileID: 4364662596192716276, guid: 89507d1642b7a224ca15a35b4cc7e9da,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.46
+      value: -20.68
       objectReference: {fileID: 0}
     - target: {fileID: 4364662596192716276, guid: 89507d1642b7a224ca15a35b4cc7e9da,
         type: 3}
