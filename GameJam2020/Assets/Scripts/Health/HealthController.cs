@@ -2,18 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthController : MonoBehaviour
 {
     
     [SerializeField] private float maxHealth = 10f;
-    public byte TeamNumber = 0;
-
-
+    [SerializeField] private byte TeamNumber = 0;
     [SerializeField] private float immunityAfterDamageTimer = 1.5f;
-    public Material flashMaterial;
-    public Renderer rendererBody;
-
+    [SerializeField] private Material flashMaterial;
+    [SerializeField] private Renderer rendererBody;
+    [SerializeField] private TakeDamageEvent onDamageTextSpawn;
     [HideInInspector] public HealthBarUI healthUI;
 
     private float health = 10f;
@@ -21,8 +20,14 @@ public class HealthController : MonoBehaviour
     private float lastDamageTime = 0f;
     private Material[] defaultMaterials;
     private Material[] flashingMaterials;
-
     public event EventHandler<OnHealthChangeEventArgs> OnHealthChange;
+
+    //This class just allows me to use a variable with the UnityEvent. I just need the type.
+    [Serializable]
+    public class TakeDamageEvent : UnityEvent<float>
+    {
+    }
+    
     public class OnHealthChangeEventArgs : EventArgs
     {
         public float damageAmount;
@@ -59,6 +64,8 @@ public class HealthController : MonoBehaviour
         if (lastDamageTime + immunityAfterDamageTimer > Time.time)
             return;
 
+        onDamageTextSpawn.Invoke(damage);
+        
         health -= damage;
         
         OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { damageAmount = damage, currentHealth = health, owner = gameObject, instigator = _instigator });
@@ -76,6 +83,11 @@ public class HealthController : MonoBehaviour
             StartCoroutine(Blink());
     }
 
+    public float GetHealthFraction()
+    {
+        return health / maxHealth;
+    } 
+        
     //updates UI
     private void HealthChange(object sender, HealthController.OnHealthChangeEventArgs e)
     {
