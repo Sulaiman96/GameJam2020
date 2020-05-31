@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 7616454953338309821, guid: 9863b2db81c97f1468aa50fb4e38b47e,
     type: 3}
-  maxAmountOfProjectiles: 4
+  maxAmountOfProjectiles: 6
