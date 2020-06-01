@@ -305,7 +305,7 @@ MonoBehaviour:
   projectileDamage: 1
   destroyParticle: {fileID: 5246626861611520904, guid: e50464cabaf02374a8bf6301d421054c,
     type: 3}
-  spawnProjectileYxis: 2.6
+  spawnProjectileYxis: 1.5
   onImpact:
     m_PersistentCalls:
       m_Calls:
