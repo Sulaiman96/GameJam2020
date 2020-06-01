@@ -462,7 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resetSwitch: 1
   resetTimer: 1
-  activeMaterial: {fileID: 2100000, guid: 28acee14d4f10cd48ac0a1d52e176a38, type: 2}
+  activeMaterial: {fileID: 2100000, guid: 73140dd12bf8ea24e8bfe015943072e9, type: 2}
   onActivate:
     m_PersistentCalls:
       m_Calls:
