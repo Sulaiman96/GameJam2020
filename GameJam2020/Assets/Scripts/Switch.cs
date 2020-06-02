@@ -29,6 +29,11 @@ public class Switch : MonoBehaviour
          defMaterial = ren.material;
     }
 
+    private void Update()
+    {
+        //transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.time * 0.3f), transform.position.z);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (isSwitchable == false)

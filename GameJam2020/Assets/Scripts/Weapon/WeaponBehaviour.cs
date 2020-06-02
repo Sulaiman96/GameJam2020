@@ -173,15 +173,12 @@ public class WeaponBehaviour : MonoBehaviour
         if (!hitTransform)
             return;
 
-        Debug.Log("Called hit");
        Collider[] objectsHit = Physics.OverlapSphere(hitTransform.position, hitRange);
        foreach (var hitObj in objectsHit)
         {
-            Debug.Log("HitProjectile name: " + hitObj.name);
             var projectileBehaviour = hitObj.GetComponent<ProjectileBehaviour>();
             if (projectileBehaviour && !projectilesHit.Contains(projectileBehaviour))
             {
-                Debug.Log("HitProjectile name: " + hitObj.name);
                 if (projectileBehaviour.IsHoming) continue;
                 projectilesHit.Add(projectileBehaviour);
                 projectileBehaviour.LaunchProjectile(targetLocation);
