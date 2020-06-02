@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Switch : MonoBehaviour
 {
+    [SerializeField] private float floatStrength = 0.2f;
     [SerializeField] private bool resetSwitch = false;
     [SerializeField] private float resetTimer = 0f;
     [SerializeField] private Material activeMaterial;
@@ -14,6 +15,7 @@ public class Switch : MonoBehaviour
     private bool isSwitchable = true;
     private Renderer ren;
     private Material defMaterial;
+    private Vector3 startingPos;
 
     private void Awake()
     {
@@ -27,6 +29,13 @@ public class Switch : MonoBehaviour
     {
         if (ren)
          defMaterial = ren.material;
+
+        startingPos = transform.position;
+    }
+
+    private void Update()
+    {
+        transform.position = new Vector3(transform.position.x, startingPos.y + (Mathf.Sin(Time.time) * floatStrength), transform.position.z);
     }
 
     private void OnCollisionEnter(Collision collision)

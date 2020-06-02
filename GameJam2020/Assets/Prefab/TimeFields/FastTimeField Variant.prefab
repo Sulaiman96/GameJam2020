@@ -11,7 +11,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b5274a9744d3b7245b3cb776323b046f, type: 2}
+      objectReference: {fileID: 2100000, guid: a1d7df8f83e017f439b297938ce778d8, type: 2}
     - target: {fileID: 695062720184583923, guid: 53f3a4666e9e34249b05ca6e4f75eabd,
         type: 3}
       propertyPath: timeDilation
@@ -20,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 695062720184583924, guid: 53f3a4666e9e34249b05ca6e4f75eabd,
         type: 3}
       propertyPath: m_Name
-      value: FastTimeField
+      value: FastTimeField Variant
       objectReference: {fileID: 0}
     - target: {fileID: 695062720184583935, guid: 53f3a4666e9e34249b05ca6e4f75eabd,
         type: 3}
