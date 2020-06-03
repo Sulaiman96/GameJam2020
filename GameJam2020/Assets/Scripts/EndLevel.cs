@@ -14,6 +14,7 @@ public class EndLevel : MonoBehaviour
         if (persistentObject)
             Destroy(persistentObject);
 
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         if (other.CompareTag("Player"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
