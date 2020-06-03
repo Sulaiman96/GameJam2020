@@ -278,6 +278,9 @@ MonoBehaviour:
   turretBarrel: {fileID: 3256589208498756786}
   turretActiveMaterial: {fileID: 2100000, guid: 5b43c0c84e7821d478eea7e0fe33843f,
     type: 2}
+  OnFire:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3256589209786164626
 GameObject:
   m_ObjectHideFlags: 0
