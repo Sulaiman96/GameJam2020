@@ -314,9 +314,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 0.376
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1071,7 +1071,7 @@ GameObject:
   - component: {fileID: 5450148892502586731}
   m_Layer: 0
   m_Name: PersistentGameobject
-  m_TagString: Untagged
+  m_TagString: PersistentGameObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
