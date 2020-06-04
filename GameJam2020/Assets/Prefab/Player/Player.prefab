@@ -4065,7 +4065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21eb37f4192e3c4db69f4c6959d4460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Crosshair: {fileID: 2800000, guid: dbfe0e5788a76f74ea95d820614b1efe, type: 3}
+  Crosshair: {fileID: 2800000, guid: 8cab789363c9f5443804538f6fd3d00b, type: 3}
   invalidCrosshair: {fileID: 2800000, guid: 4f9fe3c159b364941bc2ec58211ab905, type: 3}
   aimAngleThreshold: -0.2
 --- !u!114 &2603712524157003199
@@ -4080,7 +4080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c5280f4bce1184a856721f7ffd722f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 30
   TeamNumber: 0
   immunityAfterDamageTimer: 1.5
   flashMaterial: {fileID: 2100000, guid: 25605fa2d1035c54f89965e4a3acb039, type: 2}

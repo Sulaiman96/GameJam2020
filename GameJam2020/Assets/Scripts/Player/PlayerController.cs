@@ -25,8 +25,11 @@ public class PlayerController : MonoBehaviour
         if (healthController)
         {
             healthController.OnHealthChange += HealthChange;
-            if (playerHUDCanvas)
-                    healthController.healthUI = playerHUDCanvas.transform.GetChild(0).GetComponent<HealthBarUI>();
+            if (!playerHUDCanvas)
+                return;
+
+            var healthUI = playerHUDCanvas.transform.GetChild(0).GetComponent<HealthBarUI>();
+            healthController.InitHealthUI(healthUI);
         }
     }
 

@@ -122,7 +122,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_C63843DF: {r: 0.1254895, g: 0.3997923, b: 0.5660378, a: 0}
+    - Color_C63843DF: {r: 0.09982684, g: 1.1091871, b: 2.1185474, a: 0}
+    - Color_F7847BB1: {r: 0, g: 0.7529412, b: 1.4980392, a: 0}
     - _BASE_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

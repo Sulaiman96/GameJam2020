@@ -27,7 +27,7 @@ public class HealthController : MonoBehaviour
     public class TakeDamageEvent : UnityEvent<float>
     {
     }
-    
+
     public class OnHealthChangeEventArgs : EventArgs
     {
         public float damageAmount;
@@ -36,9 +36,13 @@ public class HealthController : MonoBehaviour
         public GameObject instigator;
     }
 
-    void Start()
+    private void Awake()
     {
         health = maxHealth;
+    }
+
+    void Start()
+    {
         OnHealthChange += HealthChange;
 
         if (healthUI)
@@ -83,6 +87,12 @@ public class HealthController : MonoBehaviour
             StartCoroutine(Blink());
     }
 
+    public void InitHealthUI(HealthBarUI newHealthUI)
+    {
+        healthUI = newHealthUI;
+        healthUI.SetMaxHealth(maxHealth);
+    }
+
     public float GetHealthFraction()
     {
         return health / maxHealth;
@@ -92,7 +102,9 @@ public class HealthController : MonoBehaviour
     private void HealthChange(object sender, HealthController.OnHealthChangeEventArgs e)
     {
         if (healthUI)
+        {
             healthUI.SetHealth(e.currentHealth);
+        }
     }
 
     private IEnumerator Blink()
