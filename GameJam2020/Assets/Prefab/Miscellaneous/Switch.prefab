@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927485123105263318}
   - component: {fileID: 6645915737759268788}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: OffSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 11307993016289728}
   - component: {fileID: 1169907022700230180}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: OnSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 7930237268073940352}
   - component: {fileID: 7930237268074743202}
   - component: {fileID: 7930237268075841378}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: KeyCrystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 7930237268073940356}
   - component: {fileID: 7930237268074743206}
   - component: {fileID: 7930237268075841382}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 7930237268073940358}
   - component: {fileID: 7930237268073847201}
   - component: {fileID: 7930237268073847207}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6710508d114c244b3f4d14dad43404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatStrength: 0.2
   resetSwitch: 1
   resetTimer: 1
   activeMaterial: {fileID: 2100000, guid: 73140dd12bf8ea24e8bfe015943072e9, type: 2}

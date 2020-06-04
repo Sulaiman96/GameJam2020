@@ -9,6 +9,7 @@ TagManager:
   - PlayerHUD
   - WeaponHUD
   - PersistentGameObject
+  - BackgroundMusic
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - InvisibleWall
   - ExplosionLayer
   - KillVolume
-  - 
+  - Switch
   - 
   - 
   - 

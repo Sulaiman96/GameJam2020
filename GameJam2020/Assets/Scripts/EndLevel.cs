@@ -9,15 +9,15 @@ public class EndLevel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Destroy persistent object
-        persistentObject = GameObject.FindGameObjectWithTag("PersistentGameObject");
+        if (!other.CompareTag("Player"))
+            return;
+            // Destroy persistent object
+            persistentObject = GameObject.FindGameObjectWithTag("PersistentGameObject");
         if (persistentObject)
             Destroy(persistentObject);
 
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-        if (other.CompareTag("Player"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
 }
